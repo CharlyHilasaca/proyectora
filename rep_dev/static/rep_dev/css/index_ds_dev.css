@@ -1,8 +1,12 @@
+html{
+    background-color: #252440fc;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e0e0e0;
+    background-color: #252440cb;
     color: #333;
     display: flex;
     flex-direction: column;
@@ -10,9 +14,9 @@ body {
 }
 
 .header {
-    background-color: #0D1B2A;
+    background-color: #252440bb;
     color: white;
-    padding: 0.3rem;
+    padding: 0.2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -23,19 +27,124 @@ body {
     position: relative;
 }
 
+.title{
+    margin: 0px;
+}
+
 .title-container {
     display: flex;
     align-items: center;
 }
 
-.menu-icon {
-    margin-right: 0.5rem;
-    width: 45px;
-}
-
 .menu-button,
 .close-button,
 .level-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+/* Menú desplegable oculto por defecto */
+.dropdown-menu {
+    display: none; /* Ocultamos el menú hasta que se active */
+    position: fixed; /* Fijamos la posición para que cubra todo */
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 100vh; /* Ocupa toda la pantalla */
+    background-color: #252440ff; /* Fondo oscuro semitransparente */
+    z-index: 10000; /* Se asegura de estar sobre todo */
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: center;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    padding-top: 1.8rem;
+}
+
+/* Cuando el menú está activo (se mostrará con JavaScript) */
+.dropdown-menu.active {
+    display: flex;
+}
+
+/* Sección del título */
+.menu-header {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.menu-header, .texto-close, .menu-header-text{
+    margin: 0px;
+}
+
+/* Estilo del divisor */
+.menu-divider {
+    width: 95%; /* Ajusta el ancho */
+    border: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.2); /* Color blanco semitransparente */
+    margin: 10px auto; /* Espaciado entre secciones */
+}
+
+
+/* Opciones del menú */
+.menu-options {
+    flex-grow: 1; /* Expande esta sección */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-options a {
+    display: block;
+    padding: 15px;
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+    text-align: left;
+    width: 100%;
+}
+
+.menu-options a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Sección de logout */
+.menu-footer {
+    margin-top: 0px;
+    margin-bottom:2.5rem;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+    display: flex; /* Añadido */
+    align-items: center; /* Añadido */
+    justify-content: center; /* Añadido */
+}
+
+.logout-button img {
+    margin-right: 10px; /* Añadido */
+}
+
+.logout-button:hover {
+    color: white;
+}
+
+/* Botón de cierre */
+.close-menu {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    color: white;
     background: none;
     border: none;
     cursor: pointer;
@@ -56,6 +165,10 @@ body {
     width: 24px;
     height: 24px;
     padding-right: 10px;
+}
+
+.close-icon-m{
+    width: 25px;
 }
 
 .main {
@@ -163,25 +276,21 @@ body {
 }
 
 .footer {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1e0;
     text-align: center;
-    padding: 0.3rem;
+    padding: 0.2rem;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos para dispositivos móviles */
 @media (max-width: 600px) {
     .header {
-        padding: 0.3rem;
+        padding: 0.2rem;
     }
 
-    .sesion-container .sesion {
+    .sesion-container .sesion, .close-button {
         display: none;
         /* Oculta el título y el texto de sesión */
-    }
- 
-    .close-button {
-        padding-right: 25px;
     }
 
     .main {
@@ -193,15 +302,21 @@ body {
         flex: 1 1 100%;
     }
 
+    .dropdown-menu{
+        width: 75%;
+        height: 100vh;
+    }
+
+
     .footer {
-        padding: 0.3rem;
+        padding: 0.2rem;
     }
 }
 
 /* Estilos para tablets */
 @media (min-width: 601px) and (max-width: 1024px) {
     .header {
-        padding: 0.5rem;
+        padding: 0.2rem;
         /* Ajusta el padding para tablets */
     }
 
@@ -213,8 +328,13 @@ body {
         flex: 1 1 calc(50% - 1.5rem);
     }
 
+    .dropdown-menu{
+        width: 40%;
+        height: 100vh;
+    }
+
     .footer {
-        padding: 0.55rem;
+        padding: 0.2rem;
         /* Ajusta el padding para tablets */
     }
 }
@@ -222,7 +342,7 @@ body {
 /* Estilos para pantallas grandes */
 @media (min-width: 1025px) {
     .header {
-        padding: 0.5rem;
+        padding: 0.2rem;
         /* Ajusta el padding para pantallas grandes */
     }
 
@@ -231,7 +351,7 @@ body {
     }
 
     .footer {
-        padding: 0.3rem;
+        padding: 0.2rem;
         /* Ajusta el padding para pantallas grandes */
     }
 }

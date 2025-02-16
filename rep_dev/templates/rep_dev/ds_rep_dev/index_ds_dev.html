@@ -4,28 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Primera Aplicacion</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'rep_dev/css/index_ds_dev.css' %}">
     <script src="{% static 'rep_dev/js/index_ds_dev.js' %}"></script>
+    <style>
+        html {
+            background: url("{% static 'rep_dev/images/fondo.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body class="body">
     <header class="header">
         <nav class="nav">
             <div class="title-container">
-                <button class="menu-button">
+                <button class="menu-button" onclick="toggleMenu()">
                     <img src="{% static 'rep_dev/images/menu.png' %}" alt="menu" class="menu-icon" />
                 </button>
                 <h1 class="title">Panel Administrativo para Desarrollador</h1>
             </div>
             <div class="sesion-container">
-                <h3 class="sesion">Has iniciado sesion como Charly</h3>
-                <button class="close-button">
+                <h3 class="sesion">Has iniciado sesion como {{ first_name }} {{ last_name }}</h3>
+                <button class="close-button" onclick="window.location.href='{% url 'logout' %}'">
                     <img src="{% static 'rep_dev/images/close.png' %}" alt="Cerrar Sesion" class="close-icon" />
                 </button>
             </div>
         </nav>
+        <!-- Menú desplegable -->
+        <div id="dropdown-menu" class="dropdown-menu">
+            <!-- Sección 1: Encabezado -->
+            <div class="menu-header">
+                <h5 class="menu-header-text">Menú Principal</h5>
+                <button class="close-menu" onclick="toggleMenu()">✖</button>
+            </div>
+
+            <hr class="menu-divider"> <!-- Divisor después del encabezado -->
+
+            <!-- Sección 2: Opciones del Menú -->
+            <div class="menu-options">
+                <a href="#">Opción 1</a>
+            </div>
+
+            <hr class="menu-divider"> <!-- Divisor antes del logout -->
+
+            <!-- Sección 3: Logout -->
+            <div class="menu-footer">
+                <button class="logout-button" onclick="window.location.href='{% url 'logout' %}'">
+                    <img src="{% static 'rep_dev/images/close.png' %}" alt="Cerrar Sesion" class="close-icon-m" />
+                    <h5 class="texto-close">Cerrar Sesión</h5>
+                </button>
+            </div>
+        </div>
+
     </header>
     <main class="main">
         <article class="article">
@@ -39,9 +74,9 @@
                     <h3 class="subtitle-content">Proyectos Movil</h3>
                     <br />
                     <p class="texto-repositorio">
-                        Este repositorio contiene una colección de aplicaciones móviles desarrolladas. 
-                        Cada proyecto está diseñado para mejorar la experiencia del usuario y 
-                        aprovechar las capacidades nativas de los dispositivos móviles. Incluye 
+                        Este repositorio contiene una colección de aplicaciones móviles desarrolladas.
+                        Cada proyecto está diseñado para mejorar la experiencia del usuario y
+                        aprovechar las capacidades nativas de los dispositivos móviles. Incluye
                         aplicaciones de productividad, entretenimiento, y herramientas útiles para el día a día.
                     </p>
                 </div>
@@ -53,21 +88,22 @@
                         class="icon-documentacion" style="
                         width: 35px;
                         height: 35px;
-                    "/>
+                    " />
                 </button>
                 <button class="btn-ico-proyecto btn-graficos">
                     <h3>Gráficos>>></h3>
-                    <img src="{% static 'rep_dev/images/diagrama.png' %}" alt="Gráficos" class="icon-documentacion" style="
+                    <img src="{% static 'rep_dev/images/diagrama.png' %}" alt="Gráficos" class="icon-documentacion"
+                        style="
                     width: 35px;
                     height: 35px;
-                "/>
+                " />
                 </button>
                 <button class="btn-ico-proyecto btn-desarrollo">
                     <h3>Desarrollo>>></h3>
                     <img src="{% static 'rep_dev/images/dev.png' %}" alt="Desarrollo" class="icon-documentacion" style="
                     width: 35px;
                     height: 35px;
-                "/>
+                " />
                 </button>
             </div>
         </article>
@@ -82,13 +118,13 @@
                     <h3 class="subtitle-content">Proyectos Web</h3>
                     <br />
                     <p class="texto-repositorio">
-                        En esta sección, encontrarás una variedad de 
-                        proyectos web que abarcan desde sitios estáticos 
-                        hasta aplicaciones web dinámicas. Los proyectos 
-                        están construidos utilizando tecnologías modernas 
-                        como HTML5, CSS3, JavaScript, y frameworks populares 
-                        como React, Angular y Django. Cada proyecto está 
-                        enfocado en ofrecer interfaces de usuario intuitivas 
+                        En esta sección, encontrarás una variedad de
+                        proyectos web que abarcan desde sitios estáticos
+                        hasta aplicaciones web dinámicas. Los proyectos
+                        están construidos utilizando tecnologías modernas
+                        como HTML5, CSS3, JavaScript, y frameworks populares
+                        como React, Angular y Django. Cada proyecto está
+                        enfocado en ofrecer interfaces de usuario intuitivas
                         y experiencias de navegación fluidas.
                     </p>
                 </div>
@@ -100,21 +136,22 @@
                         class="icon-documentacion" style="
                         width: 35px;
                         height: 35px;
-                    "/>
+                    " />
                 </button>
                 <button class="btn-ico-proyecto btn-graficos">
                     <h3>Gráficos>>></h3>
-                    <img src="{% static 'rep_dev/images/diagrama.png' %}" alt="Gráficos" class="icon-documentacion" style="
+                    <img src="{% static 'rep_dev/images/diagrama.png' %}" alt="Gráficos" class="icon-documentacion"
+                        style="
                     width: 35px;
                     height: 35px;
-                "/>
+                " />
                 </button>
                 <button class="btn-ico-proyecto btn-desarrollo">
                     <h3>Desarrollo>>></h3>
                     <img src="{% static 'rep_dev/images/dev.png' %}" alt="Desarrollo" class="icon-documentacion" style="
                     width: 35px;
                     height: 35px;
-                "/>
+                " />
                 </button>
             </div>
         </article>
@@ -129,10 +166,10 @@
                     <h3 class="subtitle-content">Proyectos Pendientes</h3>
                     <br />
                     <p class="texto-repositorio">
-                        Esta sección recopila proyectos en desarrollo y pendientes de finalización. 
-                        Aquí se incluyen ideas innovadoras y prototipos que están en distintas etapas 
-                        de implementación. Los proyectos pendientes abordan una amplia gama de temas 
-                        y problemas, y están abiertos a contribuciones y colaboración para alcanzar 
+                        Esta sección recopila proyectos en desarrollo y pendientes de finalización.
+                        Aquí se incluyen ideas innovadoras y prototipos que están en distintas etapas
+                        de implementación. Los proyectos pendientes abordan una amplia gama de temas
+                        y problemas, y están abiertos a contribuciones y colaboración para alcanzar
                         su máximo potencial.
                     </p>
                 </div>
@@ -144,21 +181,22 @@
                         class="icon-documentacion" style="
                         width: 35px;
                         height: 35px;
-                    "/>
+                    " />
                 </button>
                 <button class="btn-ico-proyecto btn-graficos">
                     <h3>Gráficos>>></h3>
-                    <img src="{% static 'rep_dev/images/diagrama.png' %}" alt="Gráficos" class="icon-documentacion" style="
+                    <img src="{% static 'rep_dev/images/diagrama.png' %}" alt="Gráficos" class="icon-documentacion"
+                        style="
                     width: 35px;
                     height: 35px;
-                "/>
+                " />
                 </button>
                 <button class="btn-ico-proyecto btn-desarrollo">
                     <h3>Desarrollo>>></h3>
                     <img src="{% static 'rep_dev/images/dev.png' %}" alt="Desarrollo" class="icon-documentacion" style="
                     width: 35px;
                     height: 35px;
-                "/>
+                " />
                 </button>
             </div>
         </article>

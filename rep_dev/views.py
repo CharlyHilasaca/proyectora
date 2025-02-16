@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password, check_password
+from django.views.decorators.cache import never_cache
 from .models import Dev, Roles, Accesos
 
 def login(request):
@@ -18,7 +19,6 @@ def login(request):
             return render(request, 'rep_dev/login_rep_dev/login.html', {'error': 'Usuario no encontrado'})
     
     return render(request, 'rep_dev/login_rep_dev/login.html')
-
 
 def register(request):
     if request.method == 'POST':
@@ -59,7 +59,13 @@ def vistapl(request):
     dev = Dev.objects.get(id=dev_id)
     template_path = dev.vistapl.ruta
 
-    return render(request, template_path)
+    context = {
+        'user': dev,
+        'first_name': dev.first_name,
+        'last_name': dev.last_name
+    }
+
+    return render(request, template_path, context)
 
 def vistads(request, ruta):
     dev_id = request.session.get('dev_id')
@@ -78,3 +84,57 @@ def vistads(request, ruta):
 
     except Dev.DoesNotExist:
         return redirect('login')
+    
+def logout(request):
+    request.session.flush()
+    return redirect('login')
+
+@never_cache
+def vistapl(request):
+    dev_id = request.session.get('dev_id')
+
+    if not dev_id:
+        return redirect('login')
+
+    dev = Dev.objects.get(id=dev_id)
+    template_path = dev.vistapl.ruta
+
+    context = {
+        'user': dev,
+        'first_name': dev.first_name,
+        'last_name': dev.last_name
+    }
+
+    return render(request, template_path, context)
+
+@never_cache
+def vistads(request, ruta):
+    dev_id = request.session.get('dev_id')
+
+    if not dev_id:
+        return redirect('login')
+
+    try:
+        dev = Dev.objects.get(id=dev_id)
+        accesos_permitidos = dev.roles.accesos.all()
+
+        if accesos_permitidos.filter(ruta=ruta).exists():
+            response = render(request, ruta)
+            response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+            response['Pragma'] = 'no-cache'
+            response['Expires'] = '0'
+            return response
+        else:
+            return render(request, 'error.html', {'error': 'No tienes acceso a esta página.'})
+
+    except Dev.DoesNotExist:
+        return redirect('login')
+
+@never_cache
+def logout(request):
+    request.session.flush()  # Elimina todos los datos de la sesión
+    response = redirect('login')
+    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
