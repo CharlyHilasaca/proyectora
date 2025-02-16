@@ -1,0 +1,237 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0e0e0;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #0D1B2A;
+    color: white;
+    padding: 0.3rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+}
+
+.menu-icon {
+    margin-right: 0.5rem;
+    width: 45px;
+}
+
+.menu-button,
+.close-button,
+.level-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.sesion-container {
+    display: flex;
+    align-items: center;
+}
+
+.sesion-container .sesion {
+    margin: 0;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+}
+
+.sesion-container .close-icon {
+    width: 24px;
+    height: 24px;
+    padding-right: 10px;
+}
+
+.main {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.article {
+    background-color: white;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem   ;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33.333% - 1.5rem);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Añadido */
+}
+
+.article .media-left {
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.article .media-content {
+    display: flex;
+    justify-content: start;
+    margin-bottom: auto; /* Añadido */
+}
+
+.subtitle-content {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.media-right {
+    padding-top: 20px;
+}
+
+.btn-graficos {
+    margin-left: auto;
+}
+
+.btn-ico-proyecto {
+    width: 85%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    border-radius: 8px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 0.7rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.texto-repositorio {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.btn-documentacion {
+    background-color: #8ae287;
+}
+
+.btn-documentacion:hover {
+    background-color: #8ae287;
+}
+
+.btn-graficos {
+    background-color: #fed2e5;
+}
+
+.btn-graficos:hover {
+    background-color: #fed2e5;
+}
+
+.btn-desarrollo {
+    background-color: #74a7e4;
+}
+
+.btn-desarrollo:hover {
+    background-color: #74a7e4;
+}
+
+.btn-ico-proyecto h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.btn-ico-proyecto img {
+    width: 24px;
+    height: 24px;
+    margin-left: 0.5rem;
+}
+
+.footer {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 0.3rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 600px) {
+    .header {
+        padding: 0.3rem;
+    }
+
+    .sesion-container .sesion {
+        display: none;
+        /* Oculta el título y el texto de sesión */
+    }
+ 
+    .close-button {
+        padding-right: 25px;
+    }
+
+    .main {
+        padding: 0.5rem;
+        flex-direction: column;
+    }
+
+    .article {
+        flex: 1 1 100%;
+    }
+
+    .footer {
+        padding: 0.3rem;
+    }
+}
+
+/* Estilos para tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .header {
+        padding: 0.5rem;
+        /* Ajusta el padding para tablets */
+    }
+
+    .main {
+        padding: 1rem;
+    }
+
+    .article {
+        flex: 1 1 calc(50% - 1.5rem);
+    }
+
+    .footer {
+        padding: 0.55rem;
+        /* Ajusta el padding para tablets */
+    }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 1025px) {
+    .header {
+        padding: 0.5rem;
+        /* Ajusta el padding para pantallas grandes */
+    }
+
+    .main {
+        padding: 1.5rem;
+    }
+
+    .footer {
+        padding: 0.3rem;
+        /* Ajusta el padding para pantallas grandes */
+    }
+}
