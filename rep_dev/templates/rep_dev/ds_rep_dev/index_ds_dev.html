@@ -30,14 +30,16 @@
             </div>
             <div class="sesion-container">
                 <h3 class="h3">Has iniciado sesion como</h3>
-                <button class="sesion" onclick="window.location.href='{% url 'logout' %}'">{{ first_name }} {{ last_name }}</button>
+                <button class="sesion" onclick="window.location.href='{% url 'logout' %}'">
+                    {{ nombresesion }}
+                    {{ apellidosesion }}</button>
             </div>
         </nav>
         <!-- Menú desplegable -->
         <div id="dropdown-menu" class="dropdown-menu">
             <!-- Sección 1: Encabezado -->
             <div class="menu-header">
-                <h5 class="menu-header-text">{{ first_name }} {{ last_name }}</h5>
+                <h5 class="menu-header-text">{{ nombresesion }} {{ apellidosesion }}</h5>
                 <button class="close-menu" onclick="toggleMenu()">✖</button>
             </div>
 
@@ -62,14 +64,14 @@
             </div>
         </div>
     </header>
-    <main class="main">
-        <article class="article" id="opcion1">
+    <main class="main" id="opcion1">
+        <article class="article">
             <figure class="media-left">
                 <p class="image is-64x64">
                     <img src="{% static 'rep_dev/images/movil.png' %}" alt="Proyectos Movil" />
                 </p>
             </figure>
-            
+
             <h3 class="subtitle-content">Proyectos Movil</h3>
             <div class="media-content">
                 <div class="content">
@@ -91,13 +93,13 @@
                 </button>
             </div>
         </article>
-        <article class="article" id="opcion1">
+        <article class="article">
             <figure class="media-left">
                 <p class="image is-64x64">
                     <img src="{% static 'rep_dev/images/web.png' %}" alt="Proyectos Web" />
                 </p>
             </figure>
-            
+
             <h3 class="subtitle-content">Proyectos Web</h3>
             <div class="media-content">
                 <div class="content">
@@ -123,13 +125,13 @@
                 </button>
             </div>
         </article>
-        <article class="article" id="opcion1">
+        <article class="article">
             <figure class="media-left">
                 <p class="image is-64x64">
                     <img src="{% static 'rep_dev/images/pendiente.png' %}" alt="Proyectos Pendientes" />
                 </p>
             </figure>
-            
+
             <h3 class="subtitle-content">Proyectos Pendientes</h3>
             <div class="media-content">
                 <div class="content">
@@ -152,26 +154,10 @@
                 </button>
             </div>
         </article>
-        <article class="article" id="opcion2">
-            <h3 class="subtitle-content">Proyectos Pendientes</h3>
-            <div class="media-content">
-                <div class="content">
-                    <br />
-                    <p class="texto-repositorio">
-                        Esta sección recopila proyectos en desarrollo y pendientes de finalización.
-                        Aquí se incluyen ideas innovadoras y prototipos que están en distintas etapas
-                        de implementación. Los proyectos pendientes abordan una amplia gama de temas
-                        y problemas, y están abiertos a contribuciones y colaboración para alcanzar
-                        su máximo potencial.
-                    </p>
-                </div>
-            </div>
-        </article>
-        <article class="article" id="opcion3">
-            
-        </article>
-        <article class="article" id="opcion4">
-            
+    </main>
+    <main class="main" id="opcion2">
+        <article class="article">
+            <h4>{{ rutaaccesos }}</h4>
         </article>
     </main>
     <footer class="footer">

@@ -5,6 +5,9 @@ from django.views.decorators.cache import never_cache
 from .models import *
 
 def login(request):
+    if request.session.get('dev_id'):
+        return redirect('vistapl')
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -51,6 +54,7 @@ def register(request):
             return render(request, 'rep_dev/register_rep_dev/register.html', {'error': 'Las contraseñas no coinciden'})
     return render(request, 'rep_dev/register_rep_dev/register.html')
 
+@never_cache
 def vistapl(request):
     dev_id = request.session.get('dev_id')
 
@@ -58,12 +62,36 @@ def vistapl(request):
         return redirect('login')
 
     dev = Dev.objects.get(id=dev_id)
+    devs = Dev.objects.all()
+    accesos = Accesos.objects.all()
+    roles = Roles.objects.all()
+
     template_path = dev.vistapl.ruta
 
     context = {
-        'user': dev,
-        'first_name': dev.first_name,
-        'last_name': dev.last_name
+        'usersesion': dev,
+        'nombresesion': dev.first_name,
+        'apellidosesion': dev.last_name,
+        'usernamesesion': dev.username,
+        'emailsesion': dev.email,
+        'rolessesion': dev.roles,
+        'vistaplsesion': dev.vistapl,
+
+        'userlist': devs,
+        'nombreslist': [dev.first_name for dev in devs],
+        'apellidoslist': [dev.last_name for dev in devs],
+        'usernamelist': [dev.username for dev in devs],
+        'emaillist': [dev.email for dev in devs],
+        'roleslist': [dev.roles for dev in devs],
+        'vistapllist': [dev.vistapl for dev in devs],
+        'accesoslist': accesos,
+
+        'roleslist': roles,
+        'nombreroles': [rol.nombre for rol in roles],
+        'accesosroles': [rol.accesos.all() for rol in roles],
+
+        'accesoslist': accesos,
+        'rutaaccesos': [acceso.ruta for acceso in accesos],
     }
 
     return render(request, template_path, context)
@@ -89,24 +117,6 @@ def vistads(request, ruta):
 def logout(request):
     request.session.flush()
     return redirect('login')
-
-@never_cache
-def vistapl(request):
-    dev_id = request.session.get('dev_id')
-
-    if not dev_id:
-        return redirect('login')
-
-    dev = Dev.objects.get(id=dev_id)
-    template_path = dev.vistapl.ruta
-
-    context = {
-        'user': dev,
-        'first_name': dev.first_name,
-        'last_name': dev.last_name
-    }
-
-    return render(request, template_path, context)
 
 @never_cache
 def vistads(request, ruta):

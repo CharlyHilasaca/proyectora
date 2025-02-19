@@ -19,7 +19,7 @@ window.onclick = function (event) {
 
 document.addEventListener("DOMContentLoaded", function () {
     const menuOptions = document.querySelectorAll(".menu-options a");
-    const articles = document.querySelectorAll(".article");
+    const mains = document.querySelectorAll("main[id^='opcion']"); // Obtiene todos los divs con ID que empieza con "opcion"
 
     // Mostrar la primera opción por defecto
     showContent("opcion1");
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Agregar evento a cada opción del menú
     menuOptions.forEach(option => {
         option.addEventListener("click", function (event) {
-            event.preventDefault(); // Evita la navegación real
+            event.preventDefault(); // Evita que el enlace cambie la URL
 
             // Remover la clase 'active' de todas las opciones
             menuOptions.forEach(item => item.classList.remove("active"));
@@ -44,13 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Función para mostrar contenido dinámico
+    // Función para mostrar solo el div correspondiente
     function showContent(option) {
-        articles.forEach(article => {
-            if (article.id === option) {
-                article.style.display = "block";
+        mains.forEach(main => {
+            if (main.id === option) {
+                main.style.display = "block"; // Mostrar el div seleccionado
             } else {
-                article.style.display = "none";
+                main.style.display = "none"; // Ocultar los demás divs
             }
         });
     }
