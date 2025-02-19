@@ -29,25 +29,26 @@
                 <h1 class="title">Panel Administrativo para Desarrollador</h1>
             </div>
             <div class="sesion-container">
-                <h3 class="sesion">Has iniciado sesion como {{ first_name }} {{ last_name }}</h3>
-                <button class="close-button" onclick="window.location.href='{% url 'logout' %}'">
-                    <img src="{% static 'rep_dev/images/close.png' %}" alt="Cerrar Sesion" class="close-icon" />
-                </button>
+                <h3 class="h3">Has iniciado sesion como</h3>
+                <button class="sesion" onclick="window.location.href='{% url 'logout' %}'">{{ first_name }} {{ last_name }}</button>
             </div>
         </nav>
         <!-- Menú desplegable -->
         <div id="dropdown-menu" class="dropdown-menu">
             <!-- Sección 1: Encabezado -->
             <div class="menu-header">
-                <h5 class="menu-header-text">Menú Principal</h5>
+                <h5 class="menu-header-text">{{ first_name }} {{ last_name }}</h5>
                 <button class="close-menu" onclick="toggleMenu()">✖</button>
             </div>
 
             <hr class="menu-divider"> <!-- Divisor después del encabezado -->
 
-            <!-- Sección 2: Opciones del Menú -->
+            <!-- Opciones del Menú -->
             <div class="menu-options">
-                <a href="#">Opción 1</a>
+                <a href="#" data-content="opcion1" class="active">Plataformas</a>
+                <a href="#" data-content="opcion2">Desarrolladores</a>
+                <a href="#" data-content="opcion3">Roles</a>
+                <a href="#" data-content="opcion2">Accesos</a>
             </div>
 
             <hr class="menu-divider"> <!-- Divisor antes del logout -->
@@ -60,18 +61,18 @@
                 </button>
             </div>
         </div>
-
     </header>
     <main class="main">
-        <article class="article">
+        <article class="article" id="opcion1">
             <figure class="media-left">
                 <p class="image is-64x64">
                     <img src="{% static 'rep_dev/images/movil.png' %}" alt="Proyectos Movil" />
                 </p>
             </figure>
+            
+            <h3 class="subtitle-content">Proyectos Movil</h3>
             <div class="media-content">
                 <div class="content">
-                    <h3 class="subtitle-content">Proyectos Movil</h3>
                     <br />
                     <p class="texto-repositorio">
                         Este repositorio contiene una colección de aplicaciones móviles desarrolladas.
@@ -83,39 +84,23 @@
             </div>
             <div class="media-right">
                 <button class="btn-ico-proyecto btn-documentacion">
-                    <h3>Documentacion>>></h3>
-                    <img src="{% static 'rep_dev/images/documentacion.png' %}" alt="Documentacion"
-                        class="icon-documentacion" style="
-                        width: 35px;
-                        height: 35px;
-                    " />
-                </button>
-                <button class="btn-ico-proyecto btn-graficos">
-                    <h3>Gráficos>>></h3>
-                    <img src="{% static 'rep_dev/images/diagrama.png' %}" alt="Gráficos" class="icon-documentacion"
-                        style="
-                    width: 35px;
-                    height: 35px;
-                " />
+                    <h3>**Documentacion**</h3>
                 </button>
                 <button class="btn-ico-proyecto btn-desarrollo">
-                    <h3>Desarrollo>>></h3>
-                    <img src="{% static 'rep_dev/images/dev.png' %}" alt="Desarrollo" class="icon-documentacion" style="
-                    width: 35px;
-                    height: 35px;
-                " />
+                    <h3>**Desarrollo**</h3>
                 </button>
             </div>
         </article>
-        <article class="article">
+        <article class="article" id="opcion1">
             <figure class="media-left">
                 <p class="image is-64x64">
                     <img src="{% static 'rep_dev/images/web.png' %}" alt="Proyectos Web" />
                 </p>
             </figure>
+            
+            <h3 class="subtitle-content">Proyectos Web</h3>
             <div class="media-content">
                 <div class="content">
-                    <h3 class="subtitle-content">Proyectos Web</h3>
                     <br />
                     <p class="texto-repositorio">
                         En esta sección, encontrarás una variedad de
@@ -131,39 +116,23 @@
             </div>
             <div class="media-right">
                 <button class="btn-ico-proyecto btn-documentacion">
-                    <h3>Documentacion>>></h3>
-                    <img src="{% static 'rep_dev/images/documentacion.png' %}" alt="Documentacion"
-                        class="icon-documentacion" style="
-                        width: 35px;
-                        height: 35px;
-                    " />
-                </button>
-                <button class="btn-ico-proyecto btn-graficos">
-                    <h3>Gráficos>>></h3>
-                    <img src="{% static 'rep_dev/images/diagrama.png' %}" alt="Gráficos" class="icon-documentacion"
-                        style="
-                    width: 35px;
-                    height: 35px;
-                " />
+                    <h3>**Documentacion**</h3>
                 </button>
                 <button class="btn-ico-proyecto btn-desarrollo">
-                    <h3>Desarrollo>>></h3>
-                    <img src="{% static 'rep_dev/images/dev.png' %}" alt="Desarrollo" class="icon-documentacion" style="
-                    width: 35px;
-                    height: 35px;
-                " />
+                    <h3>**Desarrollo**</h3>
                 </button>
             </div>
         </article>
-        <article class="article">
+        <article class="article" id="opcion1">
             <figure class="media-left">
                 <p class="image is-64x64">
                     <img src="{% static 'rep_dev/images/pendiente.png' %}" alt="Proyectos Pendientes" />
                 </p>
             </figure>
+            
+            <h3 class="subtitle-content">Proyectos Pendientes</h3>
             <div class="media-content">
                 <div class="content">
-                    <h3 class="subtitle-content">Proyectos Pendientes</h3>
                     <br />
                     <p class="texto-repositorio">
                         Esta sección recopila proyectos en desarrollo y pendientes de finalización.
@@ -176,33 +145,37 @@
             </div>
             <div class="media-right">
                 <button class="btn-ico-proyecto btn-documentacion">
-                    <h3>Documentacion>>></h3>
-                    <img src="{% static 'rep_dev/images/documentacion.png' %}" alt="Documentacion"
-                        class="icon-documentacion" style="
-                        width: 35px;
-                        height: 35px;
-                    " />
-                </button>
-                <button class="btn-ico-proyecto btn-graficos">
-                    <h3>Gráficos>>></h3>
-                    <img src="{% static 'rep_dev/images/diagrama.png' %}" alt="Gráficos" class="icon-documentacion"
-                        style="
-                    width: 35px;
-                    height: 35px;
-                " />
+                    <h3>**Documentacion**</h3>
                 </button>
                 <button class="btn-ico-proyecto btn-desarrollo">
-                    <h3>Desarrollo>>></h3>
-                    <img src="{% static 'rep_dev/images/dev.png' %}" alt="Desarrollo" class="icon-documentacion" style="
-                    width: 35px;
-                    height: 35px;
-                " />
+                    <h3>**Desarrollo**</h3>
                 </button>
             </div>
         </article>
+        <article class="article" id="opcion2">
+            <h3 class="subtitle-content">Proyectos Pendientes</h3>
+            <div class="media-content">
+                <div class="content">
+                    <br />
+                    <p class="texto-repositorio">
+                        Esta sección recopila proyectos en desarrollo y pendientes de finalización.
+                        Aquí se incluyen ideas innovadoras y prototipos que están en distintas etapas
+                        de implementación. Los proyectos pendientes abordan una amplia gama de temas
+                        y problemas, y están abiertos a contribuciones y colaboración para alcanzar
+                        su máximo potencial.
+                    </p>
+                </div>
+            </div>
+        </article>
+        <article class="article" id="opcion3">
+            
+        </article>
+        <article class="article" id="opcion4">
+            
+        </article>
     </main>
     <footer class="footer">
-        <p>Hecho por CharlyHilasaca. &copy; Todos los derechos reservados.</p>
+        <p>Hecho por Charly Hilasaca. &copy; Todos los derechos reservados.</p>
     </footer>
 </body>
 

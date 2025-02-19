@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from .models import Dev, Roles, Accesos
+from .models import *
 
 def login(request):
     if request.method == 'POST':
@@ -138,3 +139,4 @@ def logout(request):
     response['Pragma'] = 'no-cache'
     response['Expires'] = '0'
     return response
+
