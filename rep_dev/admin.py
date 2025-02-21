@@ -5,3 +5,7 @@ from .models import *
 admin.site.register(Accesos)
 admin.site.register(Roles)
 admin.site.register(Dev)
+admin.site.register(Descripcion)
+admin.site.register(Opcion)
+admin.site.register(DevOpcion)
+admin.site.register(DevDescripcion)

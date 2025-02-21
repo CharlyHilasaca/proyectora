@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
@@ -35,8 +35,9 @@ def register(request):
         
         if password == confirm_password:
             hashed_password = make_password(password)
-            default_role = Roles.objects.get(nombre='default_role')  # Asigna un rol por defecto
-            default_access = Accesos.objects.get(ruta='rep_dev/vistapl.html')  # Asigna una vista por defecto
+            default_role, _ = Roles.objects.get_or_create(nombre='Cliente')
+            default_access, _ = Accesos.objects.get_or_create(ruta='rep_dev/vistapl.html')
+
             
             dev = Dev(
                 first_name=first_name,
@@ -61,14 +62,23 @@ def vistapl(request):
     if not dev_id:
         return redirect('login')
 
-    dev = Dev.objects.get(id=dev_id)
-    devs = Dev.objects.all()
+    # Obtener el usuario en sesión
+    dev = get_object_or_404(Dev.objects.prefetch_related(
+        "roles",
+        "vistapl",
+        "descripcion_set__opcion"  # Obtiene todas sus descripciones y sus opciones asociadas
+    ), id=dev_id)
+
+    # Obtener todos los datos filtrados por el usuario en sesión
     accesos = Accesos.objects.all()
-    roles = Roles.objects.all()
+    roles = Roles.objects.prefetch_related("accesos")
+    menus = Menu.objects.prefetch_related("opciones")
+    
+    # Filtrar opciones de menú basadas en las descripciones del usuario
+    opciones_usuario = Opcion.objects.filter(descripcion__in=dev.descripcion_set.all()).distinct()
+    menus_usuario = menus.filter(opciones__in=opciones_usuario).distinct()
 
-    template_path = dev.vistapl.ruta
-
-    context = {
+    return render(request, dev.vistapl.ruta, {
         'usersesion': dev,
         'nombresesion': dev.first_name,
         'apellidosesion': dev.last_name,
@@ -77,24 +87,11 @@ def vistapl(request):
         'rolessesion': dev.roles,
         'vistaplsesion': dev.vistapl,
 
-        'userlist': devs,
-        'nombreslist': [dev.first_name for dev in devs],
-        'apellidoslist': [dev.last_name for dev in devs],
-        'usernamelist': [dev.username for dev in devs],
-        'emaillist': [dev.email for dev in devs],
-        'roleslist': [dev.roles for dev in devs],
-        'vistapllist': [dev.vistapl for dev in devs],
         'accesoslist': accesos,
-
         'roleslist': roles,
-        'nombreroles': [rol.nombre for rol in roles],
-        'accesosroles': [rol.accesos.all() for rol in roles],
-
-        'accesoslist': accesos,
-        'rutaaccesos': [acceso.ruta for acceso in accesos],
-    }
-
-    return render(request, template_path, context)
+        'menus_usuario': menus_usuario,
+        'opciones_usuario': opciones_usuario,
+    })
 
 def vistads(request, ruta):
     dev_id = request.session.get('dev_id')

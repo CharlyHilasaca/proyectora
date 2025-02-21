@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function showContent(option) {
         mains.forEach(main => {
             if (main.id === option) {
-                main.style.display = "block"; // Mostrar el div seleccionado
+                main.style.display = "flex"; // Mostrar el div seleccionado
             } else {
                 main.style.display = "none"; // Ocultar los demás divs
             }
