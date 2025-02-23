@@ -1,23 +1,12 @@
 html{
-    background-color: #252440fc;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #252440cb;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    background-color: #141422;
 }
 
 .header {
-    background-color: #252440bb;
+    background-color: #252440;
     color: white;
     padding: 0.2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 .nav {
@@ -58,9 +47,8 @@ body {
     flex-direction: column;
     align-content: space-between;
     justify-content: center;
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
-    padding-top: 1.8rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.355);
 }
 
 /* Cuando el menú está activo (se mostrará con JavaScript) */
@@ -74,7 +62,7 @@ body {
     font-weight: bold;
     color: white;
     margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+    text-align: center;
 }
 
 .menu-header, .texto-close, .menu-header-text{
@@ -83,7 +71,7 @@ body {
 
 /* Estilo del divisor */
 .menu-divider {
-    width: 95%; /* Ajusta el ancho */
+    width: 100%; /* Ajusta el ancho */
     border: none;
     border-top: 2px solid rgba(255, 255, 255, 0.2); /* Color blanco semitransparente */
     margin: 10px auto; /* Espaciado entre secciones */
@@ -100,29 +88,31 @@ body {
 
 .menu-options a {
     display: block;
-    padding: 15px;
+    padding: 0.3rem;
     font-size: 1.5rem;
     color: white;
     text-decoration: none;
     text-align: left;
     width: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.355);
 }
 
 .menu-options a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Sección de logout */
 .menu-footer {
-    margin-top: 0px;
-    margin-bottom:2.5rem;
+    margin-bottom:1.5rem;
 }
 
 /* Opción activa resaltada */
 .menu-options a.active {
     background-color: rgba(255, 255, 255, 0.2);
     font-weight: bold;
-    color: yellow;
+    color: rgb(255, 255, 255);
 }
 
 .logout-button {
@@ -180,14 +170,19 @@ body {
     width: 25px;
 }
 
-.main {
-    padding: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    flex: 1;
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    display: flex;
+    flex: 1;
 }
 
 .article {
@@ -301,10 +296,14 @@ body {
 }
 
 .footer {
-    background-color: #f1f1f1e0;
+    background-color: #252440fc;
     text-align: center;
     padding: 0.2rem;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.footer p{
+    color: white;
 }
 
 /* Estilos para dispositivos móviles */
@@ -319,8 +318,6 @@ body {
     }
 
     .main {
-        padding: 1.5rem;
-        flex-direction: column;
     }
 
     .article {
@@ -344,7 +341,6 @@ body {
     }
 
     .main {
-        padding: 1.5rem;
     }
 
     .close-button 
@@ -375,7 +371,6 @@ body {
     }
 
     .main {
-        padding: 1.5rem;
     }
 
     .footer {

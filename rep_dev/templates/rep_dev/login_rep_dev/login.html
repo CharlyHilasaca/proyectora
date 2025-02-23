@@ -8,35 +8,70 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'rep_dev/css/login.css' %}">
-    <style>
-        html {
-            background: url("{% static 'rep_dev/images/fondo.jpg' %}") no-repeat center center fixed;
-            background-size: cover;
-        }
-    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{% static 'rep_dev/js/login.js' %}"></script>
 
 </head>
 
 <body>
-    <div class="container-body">
-        <div class="fondo-container">
-            <div class="login-container">
-                <h1>Iniciar Sesión</h1>
-                <form action="/login/" method="post">
-                    {% csrf_token %}
+    <div id="fondo-estrellas"></div>
+    <canvas id="canvas-lineas"></canvas>
+    <div class="container-lr">
+        <div class="port-login">
+            <img class="port-img-login" src="{% static 'rep_dev/images/portada.png' %}" alt="Portada">
+        </div>
+        <div id="login-container" class="login-container">
+            <form class="ld" action="/login/" method="post">
+                <div class="txtl">
+                    <h2>Iniciar Sesión</h1>
+                </div>
+                {% csrf_token %}
+                <div class="userl">
+                    <label class="lbl-userl" for="username">Usuario:</label>
+                    <input class="iuserl" type="text" id="usernamel" name="username" required>
+                </div>
+    
+                <div class="passwordl">
+                    <label class="lbl-passwordl" for="password">Contraseña:</label>
+                    <input class="ipasswordl" type="password" id="passwordl" name="password" required>
+                </div>
+    
+                <div class="container-pl">
+                    <button class="loginud" type="submit"><h4 class="ipl">Ingresar</h4></button>
+                </div>
+                <div class="redirect-rd">
+                    <p>¿No tienes una cuenta? <a id="t-lr" class="t-lr">Regístrate aquí</a></p>
+                    {% if error %}
+                    <p class="error">{{ error }}</p>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+        <div id="register-container" class="register-container">
+            <form class="rd" action="{% url 'register' %}" method="post">
+                <div class="txtr">
+                    <h1>Registrar Usuario</h1>
+                </div>
+                {% csrf_token %}
+                <div class="userr">
                     <label for="username">Usuario</label>
-                    <input type="text" id="username" name="username" required>
-
+                    <input class="iuserr" type="text" id="usernamer" name="username" required>
+                </div>
+    
+                <div class="passwordr">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required>
-
-                    <button type="submit">Ingresar</button>
-                </form>
-                <p>¿No tienes una cuenta? <a href="/register/">Regístrate aquí</a></p>
-                {% if error %}
-                <p class="error">{{ error }}</p>
-                {% endif %}
-            </div>
+                    <input class="ipasswordr" type="password" id="passwordr" name="password" required>
+                </div>
+    
+                <div class="container-rd">
+                    <button class="registerud" type="submit">Registrar</button>
+                </div>
+    
+                <div class="redirect-l">
+                    <p>¿Ya tienes una cuenta? <a id="t-rl" class="t-rl">Inicia sesión aquí</a></p>
+                </div>
+    
+            </form>
         </div>
     </div>
 </body>

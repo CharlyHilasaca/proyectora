@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
@@ -35,9 +35,8 @@ def register(request):
         
         if password == confirm_password:
             hashed_password = make_password(password)
-            default_role, _ = Roles.objects.get_or_create(nombre='Cliente')
-            default_access, _ = Accesos.objects.get_or_create(ruta='rep_dev/vistapl.html')
-
+            default_role = Roles.objects.get(nombre='default_role')  # Asigna un rol por defecto
+            default_access = Accesos.objects.get(ruta='rep_dev/vistapl.html')  # Asigna una vista por defecto
             
             dev = Dev(
                 first_name=first_name,
@@ -58,26 +57,26 @@ def register(request):
 @never_cache
 def vistapl(request):
     dev_id = request.session.get('dev_id')
-
+    
     if not dev_id:
         return redirect('login')
-
-    # Obtener el usuario en sesión
-    dev = get_object_or_404(Dev.objects.prefetch_related(
-        "roles",
-        "vistapl",
-        "descripcion_set__opcion"  # Obtiene todas sus descripciones y sus opciones asociadas
-    ), id=dev_id)
-
-    # Obtener todos los datos filtrados por el usuario en sesión
-    accesos = Accesos.objects.all()
-    roles = Roles.objects.prefetch_related("accesos")
-    menus = Menu.objects.prefetch_related("opciones")
     
-    # Filtrar opciones de menú basadas en las descripciones del usuario
-    opciones_usuario = Opcion.objects.filter(descripcion__in=dev.descripcion_set.all()).distinct()
-    menus_usuario = menus.filter(opciones__in=opciones_usuario).distinct()
+    # Obtener el usuario en sesión con sus relaciones
+    dev = get_object_or_404(
+        Dev.objects.prefetch_related(
+            "roles__accesos", "vistapl", "opciones__opcion__descripcion"
+        ),
+        id=dev_id
+    )
+    
+    # Filtrar opciones del usuario con su descripción
+    opciones_usuario = Opcion.objects.filter(
+        id__in=dev.opciones.values_list("opcion_id", flat=True)
+    ).select_related("descripcion")  # Se trae la relación con Descripcion
 
+    # Filtrar menús asociados a las opciones del usuario
+    menus_usuario = Menu.objects.filter(opciones__in=opciones_usuario).distinct()
+    
     return render(request, dev.vistapl.ruta, {
         'usersesion': dev,
         'nombresesion': dev.first_name,
@@ -86,9 +85,7 @@ def vistapl(request):
         'emailsesion': dev.email,
         'rolessesion': dev.roles,
         'vistaplsesion': dev.vistapl,
-
-        'accesoslist': accesos,
-        'roleslist': roles,
+        'roleslist': Roles.objects.prefetch_related("accesos"),
         'menus_usuario': menus_usuario,
         'opciones_usuario': opciones_usuario,
     })

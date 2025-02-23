@@ -11,12 +11,6 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'rep_dev/css/index_ds_dev.css' %}">
     <script src="{% static 'rep_dev/js/index_ds_dev.js' %}"></script>
-    <style>
-        html {
-            background: url("{% static 'rep_dev/images/fondo.jpg' %}") no-repeat center center fixed;
-            background-size: cover;
-        }
-    </style>
 </head>
 
 <body class="body">
@@ -39,18 +33,18 @@
         <div id="dropdown-menu" class="dropdown-menu">
             <!-- Sección 1: Encabezado -->
             <div class="menu-header">
-                <h5 class="menu-header-text">{{ nombresesion }} {{ apellidosesion }}</h5>
-                <button class="close-menu" onclick="toggleMenu()">✖</button>
+                <h5 class="menu-header-text">{{ usernamesesion }}</h5>
             </div>
 
             <hr class="menu-divider"> <!-- Divisor después del encabezado -->
 
             <!-- Opciones del Menú -->
             <div class="menu-options">
-                <a href="#" data-content="opcion1" class="active">Plataformas</a>
-                <a href="#" data-content="opcion2">Desarrolladores</a>
-                <a href="#" data-content="opcion3">Roles</a>
-                <a href="#" data-content="opcion2">Accesos</a>
+                {% for opcion in opciones_usuario %}
+                <a href="#" data-content="{{ opcion.nombre }}" class="{{ opcion.clase }}">
+                    {{ opcion.descripcion.nombre }}
+                </a>
+                {% endfor %}
             </div>
 
             <hr class="menu-divider"> <!-- Divisor antes del logout -->
@@ -65,100 +59,7 @@
         </div>
     </header>
     <main class="main" id="opcion1">
-        <article class="article">
-            <figure class="media-left">
-                <p class="image is-64x64">
-                    <img src="{% static 'rep_dev/images/movil.png' %}" alt="Proyectos Movil" />
-                </p>
-            </figure>
-
-            <h3 class="subtitle-content">Proyectos Movil</h3>
-            <div class="media-content">
-                <div class="content">
-                    <br />
-                    <p class="texto-repositorio">
-                        Este repositorio contiene una colección de aplicaciones móviles desarrolladas.
-                        Cada proyecto está diseñado para mejorar la experiencia del usuario y
-                        aprovechar las capacidades nativas de los dispositivos móviles. Incluye
-                        aplicaciones de productividad, entretenimiento, y herramientas útiles para el día a día.
-                    </p>
-                </div>
-            </div>
-            <div class="media-right">
-                <button class="btn-ico-proyecto btn-documentacion">
-                    <h3>**Documentacion**</h3>
-                </button>
-                <button class="btn-ico-proyecto btn-desarrollo">
-                    <h3>**Desarrollo**</h3>
-                </button>
-            </div>
-        </article>
-        <article class="article">
-            <figure class="media-left">
-                <p class="image is-64x64">
-                    <img src="{% static 'rep_dev/images/web.png' %}" alt="Proyectos Web" />
-                </p>
-            </figure>
-
-            <h3 class="subtitle-content">Proyectos Web</h3>
-            <div class="media-content">
-                <div class="content">
-                    <br />
-                    <p class="texto-repositorio">
-                        En esta sección, encontrarás una variedad de
-                        proyectos web que abarcan desde sitios estáticos
-                        hasta aplicaciones web dinámicas. Los proyectos
-                        están construidos utilizando tecnologías modernas
-                        como HTML5, CSS3, JavaScript, y frameworks populares
-                        como React, Angular y Django. Cada proyecto está
-                        enfocado en ofrecer interfaces de usuario intuitivas
-                        y experiencias de navegación fluidas.
-                    </p>
-                </div>
-            </div>
-            <div class="media-right">
-                <button class="btn-ico-proyecto btn-documentacion">
-                    <h3>**Documentacion**</h3>
-                </button>
-                <button class="btn-ico-proyecto btn-desarrollo">
-                    <h3>**Desarrollo**</h3>
-                </button>
-            </div>
-        </article>
-        <article class="article">
-            <figure class="media-left">
-                <p class="image is-64x64">
-                    <img src="{% static 'rep_dev/images/pendiente.png' %}" alt="Proyectos Pendientes" />
-                </p>
-            </figure>
-
-            <h3 class="subtitle-content">Proyectos Pendientes</h3>
-            <div class="media-content">
-                <div class="content">
-                    <br />
-                    <p class="texto-repositorio">
-                        Esta sección recopila proyectos en desarrollo y pendientes de finalización.
-                        Aquí se incluyen ideas innovadoras y prototipos que están en distintas etapas
-                        de implementación. Los proyectos pendientes abordan una amplia gama de temas
-                        y problemas, y están abiertos a contribuciones y colaboración para alcanzar
-                        su máximo potencial.
-                    </p>
-                </div>
-            </div>
-            <div class="media-right">
-                <button class="btn-ico-proyecto btn-documentacion">
-                    <h3>**Documentacion**</h3>
-                </button>
-                <button class="btn-ico-proyecto btn-desarrollo">
-                    <h3>**Desarrollo**</h3>
-                </button>
-            </div>
-        </article>
-    </main>
-    <main class="main" id="opcion2">
-        <article class="article">
-            <h4>{{ rutaaccesos }}</h4>
-        </article>
+        
     </main>
     <footer class="footer">
         <p>Hecho por Charly Hilasaca. &copy; Todos los derechos reservados.</p>

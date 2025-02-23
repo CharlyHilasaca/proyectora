@@ -1,38 +1,44 @@
 from django.db import models
+from django.shortcuts import get_object_or_404, render, redirect
+from django.views.decorators.cache import never_cache
+
+# MODELOS
 
 class Accesos(models.Model):
-    ruta = models.CharField(max_length=255, unique=True)  # Almacena la ruta HTML
-
+    ruta = models.CharField(max_length=255, unique=True)
+    
     def __str__(self):
         return self.ruta
 
 class Roles(models.Model):
-    nombre = models.CharField(max_length=100, unique=True)  # Nombre del rol
-    accesos = models.ManyToManyField(Accesos, related_name="roles")  # Relación M:M con Accesos
-
+    nombre = models.CharField(max_length=100, unique=True)
+    accesos = models.ManyToManyField(Accesos, related_name="roles")
+    
     def __str__(self):
         return self.nombre
 
 class Dev(models.Model):
-    first_name = models.CharField(max_length=100)  # Nombres
-    last_name = models.CharField(max_length=100)   # Apellidos
-    username = models.CharField(max_length=100, unique=True)  # Usuario único
-    email = models.EmailField(unique=True)  # Correo electrónico
-    password = models.CharField(max_length=255)  # Contraseña
-    roles = models.ForeignKey(Roles, on_delete=models.SET_DEFAULT, default=1)  # Un Dev tiene un Rol
-    vistapl = models.ForeignKey(Accesos, on_delete=models.SET_DEFAULT, default="rep_dev/vistapl.html")  # Vista por defecto
-
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, unique=True)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255)
+    roles = models.ForeignKey(Roles, on_delete=models.SET_DEFAULT, default="default_role")
+    vistapl = models.ForeignKey(Accesos, on_delete=models.SET_DEFAULT, default="rep_dev/vistapl.html")
+    
     def __str__(self):
         return self.username
-    
+
 class Descripcion(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
-
+    
     def __str__(self):
         return self.nombre
 
 class Opcion(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
+    clase = models.CharField(max_length=100, null=True, blank=True)  # Nuevo campo que acepta valores nulos
+    descripcion = models.ForeignKey(Descripcion, on_delete=models.CASCADE, related_name="opciones")  # Relación con Descripción
 
     def __str__(self):
         return self.nombre
@@ -40,28 +46,16 @@ class Opcion(models.Model):
 class Menu(models.Model):
     nombre = models.CharField(max_length=100)
     opciones = models.ManyToManyField(Opcion, related_name="menus")
-
+    
     def __str__(self):
         return self.nombre
 
-# 🔹 Relación entre Dev y Descripcion (Cada usuario tiene descripciones únicas)
-class DevDescripcion(models.Model):
-    dev = models.ForeignKey(Dev, on_delete=models.CASCADE, related_name="descripciones")
-    descripcion = models.ForeignKey(Descripcion, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ("dev", "descripcion")  # Evita que un usuario tenga descripciones repetidas
-
-    def __str__(self):
-        return f"{self.dev.username} - {self.descripcion.nombre}"
-
-# 🔹 Relación entre DevDescripcion y Opcion (Cada opción es única dentro de un usuario)
 class DevOpcion(models.Model):
-    dev_descripcion = models.ForeignKey(DevDescripcion, on_delete=models.CASCADE, related_name="opciones")
+    dev = models.ForeignKey(Dev, on_delete=models.CASCADE, related_name="opciones")
     opcion = models.ForeignKey(Opcion, on_delete=models.CASCADE)
-
+    
     class Meta:
-        unique_together = ("dev_descripcion", "opcion")  # Evita opciones duplicadas por usuario
-
+        unique_together = ("dev", "opcion")
+    
     def __str__(self):
-        return f"{self.dev_descripcion.dev.username} - {self.opcion.nombre}"
+        return f"{self.dev.username} - {self.opcion.nombre}"
