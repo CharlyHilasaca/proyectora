@@ -99,6 +99,7 @@ body {
 
 .txtl{
     text-align: end;
+    font-size: 1.5rem;
 }
 
 .userl{
@@ -106,7 +107,11 @@ body {
 }
 
 .lbl-userl{
-    font-size: 20px;
+    flex: 0.5; /* Ocupa el mismo espacio que el input */
+    font-size: 25px; /* Tamaño del texto del label */
+    text-align: right; /* Alinea el texto del label a la derecha */
+    margin-right: 10px; /* Espacio entre el label y el input */
+    text-align: start;
 }
 
 .iuserl {
@@ -114,6 +119,10 @@ body {
     border-radius: 10px;
     background-color: whitesmoke;
     padding-left: 0.5rem;
+    flex: 2; /* Ocupa dos veces el espacio del label */
+    font-size: 18px; /* Tamaño del texto del input */
+    padding: 10px; /* Espaciado interno del input */
+    width: 100%; /* Ocupa todo el ancho disponible */
 }
 
 .passwordl {
@@ -122,7 +131,11 @@ body {
 }
 
 .lbl-passwordl{
-    font-size: 20px;
+    flex: 0.5; /* Ocupa el mismo espacio que el input */
+    font-size: 25px; /* Tamaño del texto del label */
+    text-align: right; /* Alinea el texto del label a la derecha */
+    margin-right: 10px; /* Espacio entre el label y el input */
+    text-align: start;
 }
 
 .ipasswordl {
@@ -130,6 +143,10 @@ body {
     border-radius: 10px;
     background-color: whitesmoke;
     padding-left: 0.5rem;
+    flex: 2; /* Ocupa dos veces el espacio del label */
+    font-size: 18px; /* Tamaño del texto del input */
+    padding: 10px; /* Espaciado interno del input */
+    width: 100%; /* Ocupa todo el ancho disponible */
 }
 
 .container-pl {
@@ -145,6 +162,7 @@ body {
     border-radius: 5px;
     background-color: #252440;
     box-shadow: 0 2px 4px rgba(255, 255, 255, 0.355);
+    font-size: 1rem;
 }
 
 .ipl {
@@ -163,43 +181,89 @@ body {
 
 /*REGISTER*/
 
+.rd{
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
 .txtr {
-    text-align: center;
-    margin: 1rem;
+    text-align: end;
+    font-size: 1.5rem;
 }
 
 .userr {
-    text-align: center;
+    text-align: end;
     margin: 1rem;
+    font-size: 1rem;
+}
+
+.lbl-userr{
+    flex: 0.5; /* Ocupa el mismo espacio que el input */
+    font-size: 25px; /* Tamaño del texto del label */
+    text-align: right; /* Alinea el texto del label a la derecha */
+    margin-right: 10px; /* Espacio entre el label y el input */
+    text-align: start;
 }
 
 .iuserr {
     border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    padding-left: 0.5rem;
+    flex: 2; /* Ocupa dos veces el espacio del label */
+    font-size: 18px; /* Tamaño del texto del input */
+    padding: 10px; /* Espaciado interno del input */
+    width: 100%; /* Ocupa todo el ancho disponible */
 }
 
 .passwordr {
-    text-align: center;
+    text-align: end;
     margin: 1rem;
+    font-size: 1rem;
+}
+
+.lbl-passwordr{
+    flex: 0.5; /* Ocupa el mismo espacio que el input */
+    font-size: 25px; /* Tamaño del texto del label */
+    text-align: right; /* Alinea el texto del label a la derecha */
+    margin-right: 10px; /* Espacio entre el label y el input */
+    text-align: end;
 }
 
 .ipasswordr {
     border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    padding-left: 0.5rem;
+    flex: 2; /* Ocupa dos veces el espacio del label */
+    font-size: 18px; /* Tamaño del texto del input */
+    padding: 10px; /* Espaciado interno del input */
+    width: 100%; /* Ocupa todo el ancho disponible */
 }
 
 .container-rd {
-    text-align: center;
-    margin: 1rem;
+    padding-top: 2rem;
+    text-align: end;
 }
 
-.redirec-l {
-    text-align: center;
-    margin: 1rem;
+.registerud{
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 5px;
+    background-color: #252440;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.355);
+    font-size: 1rem;
+    color: white;
+}
+
+.redirect-l {
+    text-align: end;
 }
 
 .t-rl {
-    color: aquamarine;
+    color: rgb(81, 164, 136);
     cursor: pointer;
 }
 
@@ -209,6 +273,66 @@ body {
     .port-login{
         display: none;
     }
+
+    #canvas-lineas{
+        display: none;
+    }
+
+    .container-lr{
+        margin-top: 15rem;
+        margin-bottom: 15rem;
+        margin-left: 15rem;
+        margin-right: 15rem;
+    }
+
+    .ld{
+        padding-left: 2rem;
+    }
+
+    .txtl{
+        font-size: 1rem;
+        text-align: center;
+        padding-top: 2rem;
+    }
+
+    .container-pl, .redirect-rd{
+        text-align: center;
+    }
+
+    .userl, .passwordl{
+        text-align: start;
+        align-items: center;
+        margin-bottom: 1rem; /* Espacio entre los campos */
+    }
+    
+    .lbl-userl, .lbl-passwordl {
+        flex: 1; /* Ocupa el mismo espacio que el input */
+        font-size: 15px; /* Tamaño del texto del label */
+        text-align: right; /* Alinea el texto del label a la derecha */
+        margin-right: 10px; /* Espacio entre el label y el input */
+        text-align: start;
+        padding-bottom: 1rem;
+    }
+    .iuserl, .ipasswordl {
+        flex: 2; /* Ocupa dos veces el espacio del label */
+        font-size: 15px; /* Tamaño del texto del input */
+        padding: 10px; /* Espaciado interno del input */
+        width: 100%; /* Ocupa todo el ancho disponible */
+    }
+
+    .loginud{
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .redirect-rd{
+        font-size: 1rem;
+        padding-top: 2rem;
+    }    
+
+    
 }
 
 /*para pantallas medianas*/
@@ -229,13 +353,13 @@ body {
 
     .userl, .passwordl{
         text-align: start;
-        display: flex;
+        display: block;
         align-items: center;
         margin-bottom: 1rem; /* Espacio entre los campos */
     }
     
     .lbl-userl, .lbl-passwordl {
-        flex: 1; /* Ocupa el mismo espacio que el input */
+        flex: 0.5; /* Ocupa el mismo espacio que el input */
         font-size: 25px; /* Tamaño del texto del label */
         text-align: right; /* Alinea el texto del label a la derecha */
         margin-right: 10px; /* Espacio entre el label y el input */

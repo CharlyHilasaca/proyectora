@@ -28,9 +28,8 @@ def register(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        confirm_password = request.POST['confirm_password']
         
-        if password == confirm_password:
+        if password == password:
             hashed_password = make_password(password)
             default_role = Roles.objects.get(nombre='default_role')  # Asigna un rol por defecto
             default_access = Accesos.objects.get(ruta='rep_dev/vistapl.html')  # Asigna una vista por defecto

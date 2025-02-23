@@ -1,132 +1,93 @@
 $(document).ready(function () {
-    let numEstrellas = 200;
-    let minDist = 40;
-    let maxDistConexion = 150;
-    let estrellas = [];
-    let canvas = document.getElementById("canvas-lineas");
-    let ctx = canvas.getContext("2d");
+    const numEstrellas = 150;
+    const minDist = 40;
+    const maxDistCursor = 120;
+    const estrellas = [];
+    const fondoEstrellas = $("#fondo-estrellas");
+    const canvas = $("#canvas-lineas")[0];
+    const ctx = canvas.getContext("2d");
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     function generarPosicion() {
-        let x, y, valido;
-        do {
-            x = Math.floor(Math.random() * window.innerWidth);
-            y = Math.floor(Math.random() * window.innerHeight);
-            valido = true;
-
-            for (let estrella of estrellas) {
+        let x, y;
+        let valido = false;
+        
+        while (!valido) {
+            x = Math.random() * window.innerWidth;
+            y = Math.random() * window.innerHeight;
+            valido = estrellas.every(estrella => {
                 let dx = estrella.x - x;
                 let dy = estrella.y - y;
-                let distancia = Math.sqrt(dx * dx + dy * dy);
-                if (distancia < minDist) {
-                    valido = false;
-                    break;
-                }
-            }
-        } while (!valido);
+                return Math.sqrt(dx * dx + dy * dy) >= minDist;
+            });
+        }
 
         return { x, y };
     }
 
     function crearEstrellas() {
-        let fondoEstrellas = $("#fondo-estrellas");
-
         for (let i = 0; i < numEstrellas; i++) {
-            let { x, y } = generarPosicion();
-            estrellas.push({ x, y });
-
-            let estrella = $("<div class='estrella'></div>").css({
-                left: x + "px",
-                top: y + "px"
-            });
-
-            fondoEstrellas.append(estrella);
+            let pos = generarPosicion();
+            estrellas.push(pos);
+            fondoEstrellas.append(`<div class='estrella' style="left:${pos.x}px; top:${pos.y}px"></div>`);
         }
-
         animarEstrellas();
     }
 
     function animarEstrellas() {
         setInterval(() => {
-            let promesas = [];
-
-            $(".estrella").each(function (index) {
+            $(".estrella").each((index, el) => {
                 let { x, y } = generarPosicion();
                 estrellas[index] = { x, y };
-
-                let promesa = $(this).fadeOut(1000).promise().then(() => {
-                    $(this).css({ left: x + "px", top: y + "px" }).fadeIn(1000);
+                $(el).fadeOut(1000, function () {
+                    $(this).css({ left: x, top: y }).fadeIn(1000);
                 });
-
-                promesas.push(promesa);
             });
-
-            Promise.all(promesas).then(() => {
-                detectarBrillo();
-                dibujarLineaCursor(); // Ahora se ejecuta después de la animación
-            });
-
         }, 2000);
     }
 
-    function detectarBrillo() {
-        $(".estrella").each(function (index) {
-            let estrella = estrellas[index];
-            let bordeCercano = estrella.x < 50 || estrella.x > window.innerWidth - 50 ||
-                               estrella.y < 50 || estrella.y > window.innerHeight - 50;
-
-            if (bordeCercano) {
-                $(this).addClass("estrella-brillo");
-            } else {
-                $(this).removeClass("estrella-brillo");
-            }
-        });
-    }
-
-    $(window).resize(function () {
+    $(window).resize(() => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     });
 
     let mouseX = 0, mouseY = 0;
-
-    $(document).mousemove(function (event) {
-        mouseX = event.pageX;
-        mouseY = event.pageY;
+    $(document).mousemove(e => {
+        mouseX = e.pageX;
+        mouseY = e.pageY;
     });
 
     function dibujarLineaCursor() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        for (let estrella of estrellas) {
-            let dx = estrella.x - mouseX;
-            let dy = estrella.y - mouseY;
-            let distancia = Math.sqrt(dx * dx + dy * dy);
-
-            if (distancia < 120) {
-                ctx.strokeStyle = "purple";
+        estrellas.forEach(({ x, y }) => {
+            let dx = x - mouseX;
+            let dy = y - mouseY;
+            if (Math.sqrt(dx * dx + dy * dy) < maxDistCursor) {
+                ctx.strokeStyle = "white";
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(mouseX, mouseY);
-                ctx.lineTo(estrella.x, estrella.y);
+                ctx.lineTo(x, y);
                 ctx.stroke();
             }
-        }
+        });
+
+        requestAnimationFrame(dibujarLineaCursor);
     }
 
-    setInterval(dibujarLineaCursor, 50);
-
+    requestAnimationFrame(dibujarLineaCursor);
     crearEstrellas();
 
     $("#register-container").hide();
-    $("#t-lr").click(function () {
+    $("#t-lr").click(() => {
         $("#login-container").hide();
         $("#register-container").show();
     });
 
-    $("#t-rl").click(function () {
+    $("#t-rl").click(() => {
         $("#register-container").hide();
         $("#login-container").show();
     });
