@@ -26,10 +26,7 @@ def login(request):
 
 def register(request):
     if request.method == 'POST':
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
         username = request.POST['username']
-        email = request.POST['email']
         password = request.POST['password']
         confirm_password = request.POST['confirm_password']
         
@@ -39,10 +36,7 @@ def register(request):
             default_access = Accesos.objects.get(ruta='rep_dev/vistapl.html')  # Asigna una vista por defecto
             
             dev = Dev(
-                first_name=first_name,
-                last_name=last_name,
                 username=username,
-                email=email,
                 password=hashed_password,
                 roles=default_role,
                 vistapl=default_access

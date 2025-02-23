@@ -56,7 +56,7 @@ body {
     flex-wrap: nowrap;
     align-items: stretch;
     gap: 0;
-    background-color: #303030ac;
+    background-color: #141422dc;
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
@@ -251,8 +251,7 @@ body {
     .loginud{
         padding-top: 1rem;
         padding-bottom: 1rem;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+        width: 100%;
         font-size: 1rem;
     }
 

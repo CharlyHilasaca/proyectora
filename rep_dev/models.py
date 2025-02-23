@@ -18,10 +18,10 @@ class Roles(models.Model):
         return self.nombre
 
 class Dev(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
+    email = models.EmailField(unique=True, null=True, blank=True)
     username = models.CharField(max_length=100, unique=True)
-    email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
     roles = models.ForeignKey(Roles, on_delete=models.SET_DEFAULT, default="default_role")
     vistapl = models.ForeignKey(Accesos, on_delete=models.SET_DEFAULT, default="rep_dev/vistapl.html")

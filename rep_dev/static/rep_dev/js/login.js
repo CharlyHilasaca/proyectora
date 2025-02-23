@@ -64,37 +64,11 @@ $(document).ready(function () {
             });
 
             Promise.all(promesas).then(() => {
-                dibujarLineas();
                 detectarBrillo();
                 dibujarLineaCursor(); // Ahora se ejecuta después de la animación
             });
 
         }, 2000);
-    }
-
-    function dibujarLineas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = 0; i < estrellas.length; i++) {
-            let estrella1 = estrellas[i];
-
-            for (let j = i + 1; j < estrellas.length; j++) {
-                let estrella2 = estrellas[j];
-
-                let dx = estrella1.x - estrella2.x;
-                let dy = estrella1.y - estrella2.y;
-                let distancia = Math.sqrt(dx * dx + dy * dy);
-
-                if (distancia < maxDistConexion) {
-                    ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
-                    ctx.lineWidth = 0.8;
-                    ctx.beginPath();
-                    ctx.moveTo(estrella1.x, estrella1.y);
-                    ctx.lineTo(estrella2.x, estrella2.y);
-                    ctx.stroke();
-                }
-            }
-        }
     }
 
     function detectarBrillo() {
@@ -132,7 +106,7 @@ $(document).ready(function () {
             let distancia = Math.sqrt(dx * dx + dy * dy);
 
             if (distancia < 120) {
-                ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+                ctx.strokeStyle = "purple";
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(mouseX, mouseY);
