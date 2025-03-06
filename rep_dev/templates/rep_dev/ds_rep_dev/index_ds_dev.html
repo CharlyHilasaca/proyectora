@@ -10,23 +10,21 @@
     <title>Primera Aplicacion</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'rep_dev/css/index_ds_dev.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{% static 'rep_dev/js/index_ds_dev.js' %}"></script>
 </head>
 
 <body class="body">
+    <div id="fondo-estrellas"></div>
+    <canvas id="canvas-lineas"></canvas>
     <header class="header">
         <nav class="nav">
             <div class="title-container">
                 <button class="menu-button" onclick="toggleMenu()">
                     <img src="{% static 'rep_dev/images/menu.png' %}" alt="menu" class="menu-icon" />
                 </button>
-                <h1 class="title">Panel Administrativo para Desarrollador</h1>
-            </div>
-            <div class="sesion-container">
-                <h3 class="h3">Has iniciado sesion como</h3>
-                <h3 class="sesion" onclick="window.location.href='{% url 'logout' %}'">
-                    {{ nombresesion }}
-                    {{ apellidosesion }}</h3>
+                <h1 class="title">{{ nombresesion }}
+                    {{ apellidosesion }}</h1>
             </div>
         </nav>
         <!-- Menú desplegable -->
@@ -58,9 +56,26 @@
             </div>
         </div>
     </header>
-    <main class="main" id="opcion1">
-        
+    <main id="opcion1">
+        <div class="content-m">
+            <div class="content-item" data-name="React">
+                <img src="{% static 'rep_dev/images/react.png' %}" alt="React">
+            </div>
+            <div class="content-item" data-name="Spring">
+                <img src="{% static 'rep_dev/images/spring.png' %}" alt="Spring">
+            </div>
+            <div class="content-item selected" data-name="Node.js">
+                <img src="{% static 'rep_dev/images/nodejs.png' %}" alt="Node.js">
+            </div>
+            <div class="content-item hidden" data-name="Kotlin">
+                <img src="{% static 'rep_dev/images/kotlin.png' %}" alt="Kotlin">
+            </div>
+            <div class="content-item hidden" data-name="Laravel">
+                <img src="{% static 'rep_dev/images/laravel.png' %}" alt="Laravel">
+            </div>
+        </div>
     </main>
+
     <footer class="footer">
         <p>Hecho por Charly Hilasaca. &copy; Todos los derechos reservados.</p>
     </footer>

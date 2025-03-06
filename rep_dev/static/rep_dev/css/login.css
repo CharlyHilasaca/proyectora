@@ -1,391 +1,157 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    background-color: #141422;
-    overflow: hidden;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #30303020;
-    position: relative;
-}
-
-/* Contenedor de estrellas */
-#fondo-estrellas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Permite interactuar con el contenido sin bloquear */
-    z-index: -1; /* Lo manda al fondo */
-}
-
-/* Estilo de las estrellas */
-.estrella {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background-color: aquamarine;
-    box-shadow: 0 2px 4px rgb(255, 255, 255);
-    border-radius: 50%;
-    opacity: 0.7;
-}
-
-@keyframes brillar {
-    0% { opacity: 0.5; transform: scale(1); }
-    100% { opacity: 1; transform: scale(1.5); }
-}
-
-/* Canvas para las líneas */
-#canvas-lineas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -2;
-}
-
-.container-lr {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    gap: 0;
-    background-color: #141422dc;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.355);
-    margin-top: 10rem;
-    margin-bottom: 10rem;
-    margin-left: 20rem;
-    margin-right: 20rem;
-}
-
-.login-container {
-    flex: 1.5; /* Ocupa el espacio necesario */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.port-login {
-    flex: 1.5; /* Hace que tenga el mismo tamaño que el login-container */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.666); /* Fondo semitransparente */
-    border-radius: 5px;
-    overflow: hidden; /* Evita que la imagen sobresalga */
-}
-
-.port-login .port-img-login {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Hace que la imagen se adapte al contenedor */
-}
-
-/*LOGIN*/
-
-.ld{
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-}
-
-.txtl{
-    text-align: end;
-    font-size: 1.5rem;
-}
-
-.userl{
-    text-align: end;
-}
-
-.lbl-userl{
-    flex: 0.5; /* Ocupa el mismo espacio que el input */
-    font-size: 25px; /* Tamaño del texto del label */
-    text-align: right; /* Alinea el texto del label a la derecha */
-    margin-right: 10px; /* Espacio entre el label y el input */
-    text-align: start;
-}
-
-.iuserl {
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    background-color: whitesmoke;
-    padding-left: 0.5rem;
-    flex: 2; /* Ocupa dos veces el espacio del label */
-    font-size: 18px; /* Tamaño del texto del input */
-    padding: 10px; /* Espaciado interno del input */
-    width: 100%; /* Ocupa todo el ancho disponible */
-}
-
-.passwordl {
-    padding-top: 0.8rem;
-    text-align: end;
-}
-
-.lbl-passwordl{
-    flex: 0.5; /* Ocupa el mismo espacio que el input */
-    font-size: 25px; /* Tamaño del texto del label */
-    text-align: right; /* Alinea el texto del label a la derecha */
-    margin-right: 10px; /* Espacio entre el label y el input */
-    text-align: start;
-}
-
-.ipasswordl {
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    background-color: whitesmoke;
-    padding-left: 0.5rem;
-    flex: 2; /* Ocupa dos veces el espacio del label */
-    font-size: 18px; /* Tamaño del texto del input */
-    padding: 10px; /* Espaciado interno del input */
-    width: 100%; /* Ocupa todo el ancho disponible */
-}
-
-.container-pl {
-    padding-top: 2rem;
-    text-align: end;
-}
-
-.loginud {
-    padding-top: 0.3rem;
-    padding-bottom: 0.3rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
-    border-radius: 5px;
-    background-color: #252440;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.355);
-    font-size: 1rem;
-}
-
-.ipl {
-    margin: 0;
-    color: white;
-}
-
-.t-lr {
-    color: rgb(81, 164, 136);
-    cursor: pointer;
-}
-
-.redirect-rd{
-    text-align: end;
-}
-
-/*REGISTER*/
-
-.rd{
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-}
-
-.txtr {
-    text-align: end;
-    font-size: 1.5rem;
-}
-
-.userr {
-    text-align: end;
-    margin: 1rem;
-    font-size: 1rem;
-}
-
-.lbl-userr{
-    flex: 0.5; /* Ocupa el mismo espacio que el input */
-    font-size: 25px; /* Tamaño del texto del label */
-    text-align: right; /* Alinea el texto del label a la derecha */
-    margin-right: 10px; /* Espacio entre el label y el input */
-    text-align: start;
-}
-
-.iuserr {
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    background-color: whitesmoke;
-    padding-left: 0.5rem;
-    flex: 2; /* Ocupa dos veces el espacio del label */
-    font-size: 18px; /* Tamaño del texto del input */
-    padding: 10px; /* Espaciado interno del input */
-    width: 100%; /* Ocupa todo el ancho disponible */
-}
-
-.passwordr {
-    text-align: end;
-    margin: 1rem;
-    font-size: 1rem;
-}
-
-.lbl-passwordr{
-    flex: 0.5; /* Ocupa el mismo espacio que el input */
-    font-size: 25px; /* Tamaño del texto del label */
-    text-align: right; /* Alinea el texto del label a la derecha */
-    margin-right: 10px; /* Espacio entre el label y el input */
-    text-align: end;
-}
-
-.ipasswordr {
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    background-color: whitesmoke;
-    padding-left: 0.5rem;
-    flex: 2; /* Ocupa dos veces el espacio del label */
-    font-size: 18px; /* Tamaño del texto del input */
-    padding: 10px; /* Espaciado interno del input */
-    width: 100%; /* Ocupa todo el ancho disponible */
-}
-
-.container-rd {
-    padding-top: 2rem;
-    text-align: end;
-}
-
-.registerud{
-    padding-top: 0.3rem;
-    padding-bottom: 0.3rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
-    border-radius: 5px;
-    background-color: #252440;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.355);
-    font-size: 1rem;
-    color: white;
-}
-
-.redirect-l {
-    text-align: end;
-}
-
-.t-rl {
-    color: rgb(81, 164, 136);
-    cursor: pointer;
-}
-
-
 /* Estilos para dispositivos móviles */
-@media (max-width: 1000px) {
-    .port-login{
-        display: none;
-    }
+@media (max-width: 767px) {
 
-    #canvas-lineas{
-        display: none;
-    }
-
-    .container-lr{
-        margin-top: 15rem;
-        margin-bottom: 15rem;
-        margin-left: 15rem;
-        margin-right: 15rem;
-    }
-
-    .ld{
-        padding-left: 2rem;
-    }
-
-    .txtl{
-        font-size: 1rem;
-        text-align: center;
-        padding-top: 2rem;
-    }
-
-    .container-pl, .redirect-rd{
-        text-align: center;
-    }
-
-    .userl, .passwordl{
-        text-align: start;
-        align-items: center;
-        margin-bottom: 1rem; /* Espacio entre los campos */
-    }
-    
-    .lbl-userl, .lbl-passwordl {
-        flex: 1; /* Ocupa el mismo espacio que el input */
-        font-size: 15px; /* Tamaño del texto del label */
-        text-align: right; /* Alinea el texto del label a la derecha */
-        margin-right: 10px; /* Espacio entre el label y el input */
-        text-align: start;
-        padding-bottom: 1rem;
-    }
-    .iuserl, .ipasswordl {
-        flex: 2; /* Ocupa dos veces el espacio del label */
-        font-size: 15px; /* Tamaño del texto del input */
-        padding: 10px; /* Espaciado interno del input */
-        width: 100%; /* Ocupa todo el ancho disponible */
-    }
-
-    .loginud{
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        width: 100%;
-        font-size: 1rem;
-    }
-
-    .redirect-rd{
-        font-size: 1rem;
-        padding-top: 2rem;
-    }    
-
-    
 }
 
 /*para pantallas medianas*/
-@media (min-width: 1000px) and (max-width: 1224px) {
-    .port-login{
-        display: none;
-    }
-    .txtl{
-        font-size: 1.5rem;
-        text-align: center;
-        padding-bottom: 2rem;
-        padding-top: 2rem;
-    }
-
-    .container-pl, .redirect-rd{
-        text-align: center;
-    }
-
-    .userl, .passwordl{
-        text-align: start;
-        display: block;
-        align-items: center;
-        margin-bottom: 1rem; /* Espacio entre los campos */
-    }
-    
-    .lbl-userl, .lbl-passwordl {
-        flex: 0.5; /* Ocupa el mismo espacio que el input */
-        font-size: 25px; /* Tamaño del texto del label */
-        text-align: right; /* Alinea el texto del label a la derecha */
-        margin-right: 10px; /* Espacio entre el label y el input */
-        text-align: start;
-    }
-    input {
-        flex: 2; /* Ocupa dos veces el espacio del label */
-        font-size: 18px; /* Tamaño del texto del input */
-        padding: 10px; /* Espaciado interno del input */
-        width: 100%; /* Ocupa todo el ancho disponible */
-    }
-
-    .loginud{
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        width: 100%;
-        font-size: 1rem;
-    }
-
-    .redirect-rd{
-        font-size: 1rem;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
+@media (min-width: 768px) and (max-width: 1199px) {
 
 }
 
-@media (min-width: 1225px) {
+/*para pantallas grandes*/
+@media (min-width: 1200px) {
+    html, body {
+        height: 100%;
+        margin: 0;
+        background-color: #141422;
+        overflow: hidden;
+    }
+    
+    body {
+        display: flex;
+        background-color: #30303020;
+        position: relative;
+    }
+    
+    /* Canvas para las líneas */
+    #canvas-lineas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -2;
+    }
+    
+    /*contenedor para login y register*/
+    .container-lr {
+        display: flex;
+        flex: 1;
+        align-items: stretch;
+        padding: 1rem;
+        background-color: rgba(20, 20, 34, 0.4); /* Más transparente */
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        margin: 5rem 30rem;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        animation: rotatingDualShadow 4s infinite linear;
+    }
+    
+    @keyframes rotatingDualShadow {
+        0% {
+            box-shadow: -8px -8px 12px rgba(0, 255, 255, 0.4), 8px 8px 12px rgba(255, 0, 255, 0.4);
+        }
+        25% {
+            box-shadow: 8px -8px 12px rgba(0, 255, 255, 0.4), -8px 8px 12px rgba(255, 0, 255, 0.4);
+        }
+        50% {
+            box-shadow: 8px 8px 12px rgba(0, 255, 255, 0.4), -8px -8px 12px rgba(255, 0, 255, 0.4);
+        }
+        75% {
+            box-shadow: -8px 8px 12px rgba(0, 255, 255, 0.4), 8px -8px 12px rgba(255, 0, 255, 0.4);
+        }
+        100% {
+            box-shadow: -8px -8px 12px rgba(0, 255, 255, 0.4), 8px 8px 12px rgba(255, 0, 255, 0.4);
+        }
+    }
+    
+    /*LOGIN*/
+    .login-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ld{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .txtl{
+        text-align: center;
+        font-size: 1.5rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    .userl {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        width: 100%;
+        text-align: start;
+        padding-bottom: 1.5rem;
+        font-size: 25px;
+    }
+    .userl .iuserl {
+        width: 100%;
+        font-size: 15px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+    .iuserl{
+        padding: 0.5rem 1px;
+    }
+    
+    .passwordl {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        width: 100%;
+        text-align: start;
+        padding-bottom: 1.5rem;
+        font-size: 25px;
+    }
+    .passwordl .ipasswordl {
+        width: 100%;
+        font-size: 15px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+    .ipasswordl{
+        padding: 0.5rem 1px;
+    }
+    
+    .container-pl {
+        text-align: center;
+        padding-top: 2rem;
+    }
+    
+    .loginud {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 5rem;
+        padding-right: 5rem;
+        border-radius: 5px;
+        background-color: #252440;
+        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.355);
+        font-size: 1rem;
+    }
+    
+    .ipl {
+        margin: 0;
+        color: white;
+    }
+    
+    .t-lr {
+        color: rgb(81, 164, 136);
+        cursor: pointer;
+    }
+    
+    .redirect-rd{
+        text-align: center;
+    }
 }

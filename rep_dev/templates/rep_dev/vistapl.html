@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'rep_dev/css/vistapl.css' %}">
+    <script src="{% static 'rep_dev/js/vistapl.js' %}"></script>
 </head>
 <body>
-    <h1>ESPERE QUE SE LE ASIGNE UN ROL</h1>
+    <header><div class="menu-footer">
+        <button class="logout-button" onclick="window.location.href='{% url 'logout' %}'">
+            <img src="{% static 'rep_dev/images/close.png' %}" alt="Cerrar Sesion" class="close-icon-m" />
+            <h5 class="texto-close">Cerrar Sesión</h5>
+        </button>
+    </div></header>
+    <main></main>
+    <footer></footer>
 </body>
 </html>

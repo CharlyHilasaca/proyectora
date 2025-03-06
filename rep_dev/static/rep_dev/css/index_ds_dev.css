@@ -2,6 +2,44 @@ html{
     background-color: #141422;
 }
 
+/* Contenedor de estrellas */
+#fondo-estrellas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite interactuar con el contenido sin bloquear */
+    z-index: -1; /* Lo manda al fondo */
+}
+
+/* Estilo de las estrellas */
+.estrella {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: aquamarine;
+    box-shadow: 0 2px 4px rgb(255, 255, 255);
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+@keyframes brillar {
+    0% { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.5); }
+}
+
+/* Canvas para las líneas */
+#canvas-lineas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -2;
+}
+
 .header {
     background-color: #252440;
     color: white;
@@ -40,7 +78,7 @@ html{
     position: fixed; /* Fijamos la posición para que cubra todo */
     top: 0;
     left: 0;
-    width: 20%;
+    width: auto;
     height: 100vh; /* Ocupa toda la pantalla */
     background-color: #252440ff; /* Fondo oscuro semitransparente */
     z-index: 10000; /* Se asegura de estar sobre todo */
@@ -89,6 +127,7 @@ html{
 .menu-options a {
     display: block;
     padding: 0.3rem;
+    margin: 0.3rem;
     font-size: 1.5rem;
     color: white;
     text-decoration: none;
@@ -147,25 +186,6 @@ html{
     cursor: pointer;
 }
 
-.sesion-container {
-    display: flex;
-    align-items: center;
-}
-
-.sesion-container .h3{
-    padding-right: 0.5rem;
-}
-
-.sesion-container .sesion {
-    margin: 0;
-    font-size: 1rem;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    background: none;
-    color: white;
-}
-
-
 .close-icon-m{
     width: 25px;
 }
@@ -180,120 +200,79 @@ body {
     min-height: 100vh;
 }
 
-.main {
+#opcion1 {
     display: flex;
     flex: 1;
+    margin: 5rem 10rem;
 }
 
-.article {
-    background-color: white;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex: 1 1 calc(33.333% - 1.5rem);
-    box-sizing: border-box;
-    flex-direction: column; /* Añadido */
+.content-m {
     display: flex;
-    justify-content: space-between;
-    height: auto;
-}
-
-.article .media-left {
-    display: flex;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.14);
     justify-content: center;
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-.icon-documentacion{
-    width: 35px;
-    height: 35px;
-}
-
-.media-content {
-    display: flex;
-    justify-content: start;
-    margin-bottom: 1rem;
-    max-height: 12rem; /* Limita la altura a 4 líneas aproximadamente */
-    overflow-y: auto; /* Permite el scroll vertical si hay más contenido */
-}
-
-.subtitle-content {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    text-align: center;
-}
-
-.media-right {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    width: 85%;
-    margin: 0 auto;
-}
-
-.media-right .btn-ico-proyecto{
+    position: relative;
+    overflow: hidden;
     width: 100%;
-    margin-bottom: 10px; /* Optional: Add some space between buttons */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgb(255, 255, 255);
 }
 
-.btn-graficos {
-    margin-left: auto;
-}
-
-.btn-ico-proyecto {
-    width: 85%;
-    height: 50px;
-    justify-content: space-between;
-    border: none;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 0.7rem;
+/* Contenedor de imágenes */
+.content-item {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease-in-out;
+    position: relative;
 }
 
-.texto-repositorio {
-    margin-top: 0px;
-    margin-bottom: 0px;
+/* Imágenes */
+.content-item img {
+    display: block;
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
 }
 
-.btn-documentacion {
-    background-color: #8ae287;
+/* Iluminación del contenedor seleccionado */
+.content-item.selected {
+    border-color: rgb(255, 255, 0);
+    box-shadow: 0 0 15px rgb(255, 255, 0);
+    transform: scale(1.1);
 }
 
-.btn-documentacion:hover {
-    background-color: #8ae287;
+/* Sombreado con el nombre de la imagen */
+.content-item::after {
+    content: attr(data-name);
+    position: absolute;
+    bottom: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
-.btn-graficos {
-    background-color: #fed2e5;
+.content-item.selected::after {
+    opacity: 1;
 }
 
-.btn-graficos:hover {
-    background-color: #fed2e5;
+/* Ocultar elementos fuera de la vista */
+.hidden {
+    display: none;
 }
 
-.btn-desarrollo {
-    background-color: #74a7e4;
-}
-
-.btn-desarrollo:hover {
-    background-color: #74a7e4;
-}
-
-.btn-ico-proyecto h3 {
-    margin: 0;
-    font-size: 1rem;
-}
-
-.btn-ico-proyecto img {
-    width: 24px;
-    height: 24px;
-    margin-left: 0.5rem;
-}
 
 .footer {
     background-color: #252440fc;
@@ -304,76 +283,4 @@ body {
 
 .footer p{
     color: white;
-}
-
-/* Estilos para dispositivos móviles */
-@media (max-width: 600px) {
-    .header {
-        padding: 0.2rem;
-    }
-
-    .sesion-container .sesion, .h3 {
-        display: none;
-        /* Oculta el título y el texto de sesión */
-    }
-
-    .main {
-    }
-
-    .article {
-        flex: 1 1 100%;
-    }
-
-    .dropdown-menu{
-        width: 75%;
-        height: 100vh;
-    }
-
-    .footer {
-        padding: 0.2rem;
-    }
-}
-
-/*para pantallas medianas*/
-@media (min-width: 601px) and (max-width: 1024px) {
-    .header {
-        padding: 0.2rem;
-    }
-
-    .main {
-    }
-
-    .close-button 
-    
-    .close-icon{
-        height: 45px;
-        width: 45px;
-        padding: 1rem;
-    }
-
-    .sesion-container .sesion, .h3{
-        display: none;
-    }
-
-    .dropdown-menu{
-        width: 40%;
-        height: 100vh;
-    }
-
-    .footer {
-        padding: 0.2rem;
-    }
-}
-
-@media (min-width: 1025px) {
-    .header {
-        padding: 0.2rem;
-    }
-
-    .main {
-    }
-
-    .footer {
-        padding: 0.2rem;
-    }
 }

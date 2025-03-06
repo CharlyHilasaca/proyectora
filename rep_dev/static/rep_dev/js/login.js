@@ -1,9 +1,8 @@
 $(document).ready(function () {
-    const numEstrellas = 150;
-    const minDist = 40;
-    const maxDistCursor = 120;
-    const estrellas = [];
-    const fondoEstrellas = $("#fondo-estrellas");
+    const numPuntos = 200;
+    const maxDistPuntos = 100;
+    const velocidad = 0.5;
+    const puntos = [];
     const canvas = $("#canvas-lineas")[0];
     const ctx = canvas.getContext("2d");
 
@@ -11,41 +10,64 @@ $(document).ready(function () {
     canvas.height = window.innerHeight;
 
     function generarPosicion() {
-        let x, y;
-        let valido = false;
+        return {
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            vx: (Math.random() - 0.5) * velocidad,
+            vy: (Math.random() - 0.5) * velocidad
+        };
+    }
+
+    function crearPuntos() {
+        for (let i = 0; i < numPuntos; i++) {
+            puntos.push(generarPosicion());
+        }
+    }
+
+    function actualizarPuntos() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        while (!valido) {
-            x = Math.random() * window.innerWidth;
-            y = Math.random() * window.innerHeight;
-            valido = estrellas.every(estrella => {
-                let dx = estrella.x - x;
-                let dy = estrella.y - y;
-                return Math.sqrt(dx * dx + dy * dy) >= minDist;
-            });
+        for (let i = 0; i < numPuntos; i++) {
+            let p = puntos[i];
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
         }
 
-        return { x, y };
+        dibujarLineas();
+        dibujarPuntos();
+        requestAnimationFrame(actualizarPuntos);
     }
 
-    function crearEstrellas() {
-        for (let i = 0; i < numEstrellas; i++) {
-            let pos = generarPosicion();
-            estrellas.push(pos);
-            fondoEstrellas.append(`<div class='estrella' style="left:${pos.x}px; top:${pos.y}px"></div>`);
+    function dibujarPuntos() {
+        ctx.fillStyle = "white";
+        for (let p of puntos) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+            ctx.fill();
         }
-        animarEstrellas();
     }
 
-    function animarEstrellas() {
-        setInterval(() => {
-            $(".estrella").each((index, el) => {
-                let { x, y } = generarPosicion();
-                estrellas[index] = { x, y };
-                $(el).fadeOut(1000, function () {
-                    $(this).css({ left: x, top: y }).fadeIn(1000);
-                });
-            });
-        }, 2000);
+    function dibujarLineas() {
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < numPuntos; i++) {
+            for (let j = i + 1; j < numPuntos; j++) {
+                let dx = puntos[i].x - puntos[j].x;
+                let dy = puntos[i].y - puntos[j].y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < maxDistPuntos) {
+                    ctx.globalAlpha = 1 - dist / maxDistPuntos;
+                    ctx.beginPath();
+                    ctx.moveTo(puntos[i].x, puntos[i].y);
+                    ctx.lineTo(puntos[j].x, puntos[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        ctx.globalAlpha = 1;
     }
 
     $(window).resize(() => {
@@ -53,42 +75,6 @@ $(document).ready(function () {
         canvas.height = window.innerHeight;
     });
 
-    let mouseX = 0, mouseY = 0;
-    $(document).mousemove(e => {
-        mouseX = e.pageX;
-        mouseY = e.pageY;
-    });
-
-    function dibujarLineaCursor() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        estrellas.forEach(({ x, y }) => {
-            let dx = x - mouseX;
-            let dy = y - mouseY;
-            if (Math.sqrt(dx * dx + dy * dy) < maxDistCursor) {
-                ctx.strokeStyle = "white";
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(mouseX, mouseY);
-                ctx.lineTo(x, y);
-                ctx.stroke();
-            }
-        });
-
-        requestAnimationFrame(dibujarLineaCursor);
-    }
-
-    requestAnimationFrame(dibujarLineaCursor);
-    crearEstrellas();
-
-    $("#register-container").hide();
-    $("#t-lr").click(() => {
-        $("#login-container").hide();
-        $("#register-container").show();
-    });
-
-    $("#t-rl").click(() => {
-        $("#register-container").hide();
-        $("#login-container").show();
-    });
+    crearPuntos();
+    actualizarPuntos();
 });
