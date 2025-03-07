@@ -41,9 +41,9 @@ html{
 }
 
 .header {
-    background-color: #252440;
+    background-color: #373471;
     color: white;
-    padding: 0.2rem;
+    padding: 1.5rem;
     box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
@@ -63,35 +63,85 @@ html{
     align-items: center;
 }
 
-.menu-button,
-.close-button,
-.level-item {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-}
-
-/* Menú desplegable oculto por defecto */
-.dropdown-menu {
-    display: none; /* Ocultamos el menú hasta que se active */
-    position: fixed; /* Fijamos la posición para que cubra todo */
-    top: 0;
-    left: 0;
-    width: auto;
-    height: 100vh; /* Ocupa toda la pantalla */
-    background-color: #252440ff; /* Fondo oscuro semitransparente */
-    z-index: 10000; /* Se asegura de estar sobre todo */
-    flex-direction: column;
-    align-content: space-between;
-    justify-content: center;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.355);
-}
-
-/* Cuando el menú está activo (se mostrará con JavaScript) */
-.dropdown-menu.active {
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.body-page {
+    display: flex;
+    flex: 2;
+    gap: 1.5rem;
+    margin: 1rem;
+}
+
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    width: auto; /* Se adapta al contenido */
+    min-width: 250px; /* Evita que sea demasiado pequeño */
+    max-width: 90vw; /* Evita que sea demasiado grande */
+    background-color: rgba(255, 255, 255, 0.1); /* Ligera transparencia */
+    backdrop-filter: blur(10px); /* Aplica el desenfoque */
+    -webkit-backdrop-filter: blur(10px); /* Soporte para navegadores basados en WebKit */
+    z-index: 10000;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+    padding: 1.5rem;
+    animation: boxShadowAnimation 3s infinite alternate;
+}
+
+@keyframes boxShadowAnimation {
+    0% {
+        box-shadow: 0 2px 4px rgb(0, 255, 255);
+    }
+    50% {
+        box-shadow: 0 2px 4px rgb(255, 0, 255);
+    }
+    100% {
+        box-shadow: 0 2px 4px rgba(255, 0, 0, 0.7);
+    }
 }
 
 /* Sección del título */
@@ -99,22 +149,28 @@ html{
     font-size: 2rem;
     font-weight: bold;
     color: white;
-    margin-bottom: 1rem;
     text-align: center;
 }
 
-.menu-header, .texto-close, .menu-header-text{
-    margin: 0px;
+/* Encabezado y pie ocupan solo su contenido */
+.menu-header, 
+.menu-footer {
+    width: 100%;
+    text-align: center;
+}
+
+.menu-header-text{
+    margin: 0.5rem;
 }
 
 /* Estilo del divisor */
 .menu-divider {
     width: 100%; /* Ajusta el ancho */
+    height: auto;
     border: none;
     border-top: 2px solid rgba(255, 255, 255, 0.2); /* Color blanco semitransparente */
     margin: 10px auto; /* Espaciado entre secciones */
 }
-
 
 /* Opciones del menú */
 .menu-options {
@@ -142,9 +198,14 @@ html{
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Sección de logout */
-.menu-footer {
-    margin-bottom:1.5rem;
+.menu-options a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+.texto-close{
+    margin: 0.5rem;
 }
 
 /* Opción activa resaltada */
@@ -154,16 +215,16 @@ html{
     color: rgb(255, 255, 255);
 }
 
+/* Botón de cierre de sesión */
 .logout-button {
     background: none;
     border: none;
     color: white;
     font-size: 1.5rem;
     cursor: pointer;
-    padding: 10px;
-    display: flex; /* Añadido */
-    align-items: center; /* Añadido */
-    justify-content: center; /* Añadido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logout-button img {
@@ -190,39 +251,89 @@ html{
     width: 25px;
 }
 
-
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-#opcion1 {
-    display: flex;
-    flex: 1;
-    margin: 5rem 10rem;
-}
-
 .content-m {
     display: flex;
-    gap: 1.5rem;
     padding: 2rem;
+    flex-direction: column;
+    height: auto;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.14);
+    background-color: rgba(255, 255, 255, 0.1); /* Ligera transparencia */
+    backdrop-filter: blur(10px); /* Aplica el desenfoque */
+    -webkit-backdrop-filter: blur(10px); /* Soporte para navegadores WebKit */
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    overflow: auto; /* Permite el scroll si el contenido excede */
     width: 100%;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgb(255, 255, 255);
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+    animation: boxShadowAnimation 3s infinite alternate;
 }
 
 /* Contenedor de imágenes */
-.content-item {
+.cont-img-tech {
+    display: flex;
+    flex: 1;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+}
+
+/* Contenedor de botones */
+.cont-btn-tech {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: auto;
+    width: 100%;
+}
+
+
+/* Botones dentro del contenedor */
+.cont-btn-tech button {
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px;
+    font-size: 1rem;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.108);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Botón agregar tecnología */
+.btn-add-tech {
+    box-shadow: 0 2px 4px rgba(0, 255, 0, 0.5);
+}
+
+.btn-add-tech:hover {
+    background-color: rgba(0, 255, 0, 0.5);
+}
+
+/* Botón editar tecnología */
+.btn-edit-tech {
+    box-shadow: 0 2px 4px rgba(255, 255, 0, 0.5);
+}
+
+.btn-edit-tech:hover {
+    background-color: rgba(255, 255, 0, 0.5);
+}
+
+/* Botón eliminar tecnología */
+.btn-delete-tech {
+    box-shadow: 0 2px 4px rgba(255, 0, 0, 0.5);
+}
+
+.btn-delete-tech:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+
+/* Contenedor de imágenes */
+.content-tech {
     display: flex;
     flex: 1;
     justify-content: center;
@@ -236,22 +347,23 @@ body {
 }
 
 /* Imágenes */
-.content-item img {
+.content-tech .img-tech {
     display: block;
     width: 80%;
     height: 80%;
     object-fit: cover;
+    margin: 1rem;
 }
 
 /* Iluminación del contenedor seleccionado */
-.content-item.selected {
-    border-color: rgb(255, 255, 0);
-    box-shadow: 0 0 15px rgb(255, 255, 0);
+.content-tech.selected {
+    border-color: rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
     transform: scale(1.1);
 }
 
 /* Sombreado con el nombre de la imagen */
-.content-item::after {
+.content-tech::after {
     content: attr(data-name);
     position: absolute;
     bottom: 10px;
@@ -264,7 +376,7 @@ body {
     transition: opacity 0.3s;
 }
 
-.content-item.selected::after {
+.content-tech.selected::after {
     opacity: 1;
 }
 
@@ -275,7 +387,7 @@ body {
 
 
 .footer {
-    background-color: #252440fc;
+    background-color: #373471;
     text-align: center;
     padding: 0.2rem;
     box-shadow: 0 -2px 4px rgba(255, 255, 255, 0.1);

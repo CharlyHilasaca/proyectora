@@ -80,7 +80,7 @@ $(document).ready(function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    let items = document.querySelectorAll(".content-item");
+    let items = document.querySelectorAll(".content-tech");
     let index = 1; // Elemento central predeterminado
 
     function actualizarVista() {
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.querySelector(".content-m").addEventListener("click", (e) => {
-        let clickedIndex = Array.from(items).indexOf(e.target.closest(".content-item"));
+        let clickedIndex = Array.from(items).indexOf(e.target.closest(".content-tech"));
         if (clickedIndex === -1) return;
 
         if (clickedIndex < index && index > 0) {
@@ -127,28 +127,9 @@ document.addEventListener("DOMContentLoaded", function () {
     actualizarVista();
 });
 
-// filepath: /c:/DjangoProyects/proyecto_principal/rep_dev/static/rep_dev/js/index_ds_dev.js
-function toggleMenu() {
-    var menu = document.getElementById('dropdown-menu');
-
-    // Alternar la clase 'active' para mostrar u ocultar el menú
-    menu.classList.toggle('active');
-}
-
-// Cerrar el menú si se hace clic fuera de él
-window.onclick = function (event) {
-    var menu = document.getElementById('dropdown-menu');
-    var button = document.querySelector('.menu-button');
-
-    // Si se hace clic fuera del menú y del botón, se oculta
-    if (!menu.contains(event.target) && !button.contains(event.target)) {
-        menu.classList.remove('active');
-    }
-};
-
 document.addEventListener("DOMContentLoaded", function () {
     const menuOptions = document.querySelectorAll(".menu-options a");
-    const mains = document.querySelectorAll("main[id^='opcion']"); // Obtiene todos los divs con ID que empieza con "opcion"
+    const contentContainers = document.querySelectorAll(".content-m"); // Obtiene todos los contenedores con clase 'content-m'
 
     // Mostrar la primera opción por defecto
     showContent("opcion1");
@@ -167,19 +148,16 @@ document.addEventListener("DOMContentLoaded", function () {
             // Mostrar el contenido correspondiente
             const optionId = this.getAttribute("data-content");
             showContent(optionId);
-
-            // Ocultar el menú después de seleccionar
-            document.getElementById("dropdown-menu").classList.remove("active");
         });
     });
 
-    // Función para mostrar solo el div correspondiente
+    // Función para mostrar solo el contenedor correspondiente
     function showContent(option) {
-        mains.forEach(main => {
-            if (main.id === option) {
-                main.style.display = "flex"; // Mostrar el div seleccionado
+        contentContainers.forEach(container => {
+            if (container.id === option) {
+                container.classList.remove("hidden"); // Mostrar el contenedor seleccionado
             } else {
-                main.style.display = "none"; // Ocultar los demás divs
+                container.classList.add("hidden"); // Ocultar los demás contenedores
             }
         });
     }

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from .models import Dev, Opcion, Menu, Roles
+from .models import *
 
 def login(request):
     if request.session.get('dev_id'):
@@ -43,6 +43,8 @@ def vistapl(request):
 
     menus_usuario = Menu.objects.filter(opciones__in=opciones_usuario).distinct()
 
+    contech_items = Contech.objects.all()  # Obtener todos los elementos de Contech
+
     return render(request, dev.vistapl.ruta, {
         'usersesion': dev,
         'nombresesion': dev.first_name,
@@ -54,6 +56,7 @@ def vistapl(request):
         'roleslist': Roles.objects.prefetch_related("accesos"),
         'menus_usuario': menus_usuario,
         'opciones_usuario': opciones_usuario,
+        'contech_items': contech_items,  # Pasar los elementos de Contech al contexto
     })
 
 @never_cache

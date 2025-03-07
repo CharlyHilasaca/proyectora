@@ -20,13 +20,11 @@
     <header class="header">
         <nav class="nav">
             <div class="title-container">
-                <button class="menu-button" onclick="toggleMenu()">
-                    <img src="{% static 'rep_dev/images/menu.png' %}" alt="menu" class="menu-icon" />
-                </button>
-                <h1 class="title">{{ nombresesion }}
-                    {{ apellidosesion }}</h1>
+                <h1 class="title">FTC-DEV</h1>
             </div>
         </nav>
+    </header>
+    <main class="body-page">
         <!-- Menú desplegable -->
         <div id="dropdown-menu" class="dropdown-menu">
             <!-- Sección 1: Encabezado -->
@@ -50,32 +48,31 @@
             <!-- Sección 3: Logout -->
             <div class="menu-footer">
                 <button class="logout-button" onclick="window.location.href='{% url 'logout' %}'">
-                    <img src="{% static 'rep_dev/images/close.png' %}" alt="Cerrar Sesion" class="close-icon-m" />
+                    <img src="{% static 'rep_dev/images/close.png' %}" alt="Cerrar Sesión" class="close-icon-m" />
                     <h5 class="texto-close">Cerrar Sesión</h5>
                 </button>
             </div>
         </div>
-    </header>
-    <main id="opcion1">
-        <div class="content-m">
-            <div class="content-item" data-name="React">
-                <img src="{% static 'rep_dev/images/react.png' %}" alt="React">
+
+        <!-- Contenido principal -->
+        <div id="opcion1" class="content-m">
+            <div class="cont-img-tech">
+                {% for item in contech_items %}
+                <div class="{{ item.classct }}" data-name="{{ item.nametech }}">
+                    <img class="{{ item.classit }}" src="/{{ item.imgtech_url }}" alt="{{ item.nametech }}">
+                </div>
+                {% endfor %}
             </div>
-            <div class="content-item" data-name="Spring">
-                <img src="{% static 'rep_dev/images/spring.png' %}" alt="Spring">
-            </div>
-            <div class="content-item selected" data-name="Node.js">
-                <img src="{% static 'rep_dev/images/nodejs.png' %}" alt="Node.js">
-            </div>
-            <div class="content-item hidden" data-name="Kotlin">
-                <img src="{% static 'rep_dev/images/kotlin.png' %}" alt="Kotlin">
-            </div>
-            <div class="content-item hidden" data-name="Laravel">
-                <img src="{% static 'rep_dev/images/laravel.png' %}" alt="Laravel">
+            <div class="cont-btn-tech">
+                <button id="btn-add-tech" class="btn-add-tech btn-green">AGREGAR TECNOLOGIA</button>
+                <button id="btn-edit-tech" class="btn-edit-tech btn-yellow">EDITAR TECNOLOGIA</button>
+                <button id="btn-delete-tech" class="btn-delete-tech btn-red">ELIMINAR TECNOLOGIA</button>
             </div>
         </div>
+        <div id="opcion2" class="content-m">
+            <h1 style="color: white;">HOLA</h1>
+        </div>
     </main>
-
     <footer class="footer">
         <p>Hecho por Charly Hilasaca. &copy; Todos los derechos reservados.</p>
     </footer>
